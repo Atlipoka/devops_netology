@@ -15,6 +15,6 @@
   Bash is /usr/bin/bash
   Bash is /bin/bash
   Bash is /tmp/new_path_directory/bash.]
-  UPD 09.02.2022. Поправил чтоб /tmp/new_path_directory/bash был первый в списке указал комманду PATH=tmp/new_path_directory/bash:$PATH
+    - UPD 09.02.2022. Поправил чтоб /tmp/new_path_directory/bash был первый в списке указал комманду PATH=tmp/new_path_directory/bash:$PATH
 - Ответ на вопрос 13
   - Разница между batch и at в том, at запускает команду в определенной время, а batch запускается если позволяет нагрузка.
