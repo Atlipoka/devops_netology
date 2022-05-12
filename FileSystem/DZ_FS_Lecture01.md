@@ -23,4 +23,4 @@
 15. Проверка целостновсти файла
 * ![Task15](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task15.png) 
 16. Перенес содержимое RAID0 на RAID1 с помощью команды pvmove /dev/md0 /dev/md1
-* 
+* ![Task16](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task16.png) 
