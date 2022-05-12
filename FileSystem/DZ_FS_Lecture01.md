@@ -24,3 +24,10 @@
 * ![Task15](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task15.png) 
 16. Перенес содержимое RAID0 на RAID1 с помощью команды pvmove /dev/md0 /dev/md1
 * ![Task16](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task16.png) 
+17. С помощью команды mdadm /dev/md1 --fail /dev/sdb1 пометил устройство как неисправное
+* ![Task17](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task17.png)
+18. Вывод команды dmesg
+* ![Task18](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task18.png)
+19. Протестировал целостность файла повторно
+* ![Task19](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task19.png)
+20. Потушил машину.
