@@ -20,3 +20,5 @@
 * ![Task13](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task13.png) 
 14. Вывод команды lsblk
 * ![Task14](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task14.png) 
+15. Проверка целостновсти файла
+* ![Task15](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task15.png) 
