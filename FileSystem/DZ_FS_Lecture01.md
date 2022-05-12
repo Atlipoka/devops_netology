@@ -6,4 +6,5 @@
 6. Создал RAID1 с помощью mdadm --create --verbose /dev/md1 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdb2 (ниже общий скрриншот для задания 6 и 7)
 7. Создал RAID0 с помощью mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sdc1 /dev/sdc2 (ниже общий скрриншот для задания 6 и 7)
 * ![Task6,7](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task6,7.png)
-8. 
+8. С помощью команды pvcreate создал два независимы тома, использовал команд pvcreate /dev/md0 и pvcreate /dev/md1
+* ![Task8](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task8.png)
