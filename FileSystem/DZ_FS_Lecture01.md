@@ -16,3 +16,5 @@
 * ![Task11](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task11.png)
 12. Примонтировал раздел используя команду mount /dev/vol_grp1/lvol0 /tmp/new
 * ![Task12](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task12.png)
+13. Файл скачан
+* ![Task13](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task13.png) 
