@@ -12,3 +12,5 @@
 * ![Task9](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task9.png)
 10. Создал логический том на 100 МБ с расположением на RAID0 lvcreate -L 100M vol_rgp1 /dev/md0
 * ![Task10](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task10.png)
+11. Создал файловую систему ext4 с помощью команды mkfs.ext4 /dev/vol_grp1/lvol0
+* ![Task11](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task11.png)
