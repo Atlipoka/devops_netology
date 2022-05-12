@@ -14,3 +14,5 @@
 * ![Task10](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task10.png)
 11. Создал файловую систему ext4 с помощью команды mkfs.ext4 /dev/vol_grp1/lvol0
 * ![Task11](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task11.png)
+12. Примонтировал раздел используя команду mount /dev/vol_grp1/lvol0 /tmp/new
+* ![Task12](https://github.com/Atlipoka/devops_netology/blob/main/FileSystem/FS-task12.png)
