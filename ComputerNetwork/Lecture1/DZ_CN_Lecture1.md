@@ -5,3 +5,6 @@
 *  Полученный HTTP код - ![Task2-1](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task2-1.png)
 *  Самый долгий запрос - ![Task2-2](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task2-2.png)
 3. Используя адрес https://whoer.net/ru узнал свой ip адрес - 109.196.73.177
+4. С помощью whois 109.196.73.177 проверил инормацию, ответы:
+* Владелец IP - Полученный HTTP код - ![Task4-1](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task4-1.png)
+* Автономная система - Полученный HTTP код - ![Task4-2](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task4-2.png)
