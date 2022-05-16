@@ -12,3 +12,6 @@
 * ![Task5](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task5.png)
 6. Используя команду mtr -z 8.8.8.8, получил результат
 * ![Task6](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task6.png)
+7. Используя команду dig +trace dns.google получил результат
+* Сервера - ![Task7-1](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task7-1.png)
+* А записи - ![Task7-2](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task7-2.png)
