@@ -8,3 +8,5 @@
 4. С помощью whois 109.196.73.177 проверил инормацию, ответы:
 * Владелец IP - Полученный HTTP код - ![Task4-1](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task4-1.png)
 * Автономная система - Полученный HTTP код - ![Task4-2](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task4-2.png)
+5. Используя команду traceroute -A -I 8.8.8.8, сделал трасировку и получил результат
+* ![Task5](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task5.png)
