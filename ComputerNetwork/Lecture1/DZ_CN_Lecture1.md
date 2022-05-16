@@ -10,3 +10,5 @@
 * Автономная система - Полученный HTTP код - ![Task4-2](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task4-2.png)
 5. Используя команду traceroute -A -I 8.8.8.8, сделал трасировку и получил результат
 * ![Task5](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task5.png)
+6. Используя команду mtr -z 8.8.8.8, получил результат
+* ![Task6](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/CS1-task6.png)
