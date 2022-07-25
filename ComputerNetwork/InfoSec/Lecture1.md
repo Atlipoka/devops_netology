@@ -10,4 +10,4 @@
 * Перезапустил apache2, пробросил порты на VB, на локальном ПК прописал в host ДНС и IP сайта, открыл его в браузере
   * ![Task-3](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task3-2.png)
 4. Для проверки сайта на уязвимости использовал инструкцию на сайте - https://www.tecmint.com/testssl-sh-test-tls-ssl-encryption-in-linux-commandline/
-* Результат работы - ![Task-4(https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task4png)
+* Результат работы - ![Task-4](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task4png)
