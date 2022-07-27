@@ -25,3 +25,7 @@
 * Установли tshark -  apt install tshark
 * Прочитал файл tshark-ом - tshark -r file.pcap
   * ![Task-7](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task7.png)
+Дополнительные задания.
+
+8. Скачал nmap и просканировал хост scanme.nmap.org, получил список открытых сервисов и портов
+* ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task8.png)
