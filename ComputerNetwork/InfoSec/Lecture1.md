@@ -13,11 +13,11 @@
 * Результат работы - ![Task-4](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task4.png)
 5. Распишу по шагам
 * Сгенерировал ключ с помощью команды ssh-keygen
-* Используя вагрант развернул дторую ВМ и настроил в конфиге вагранта DHCP - config.vm.network "public_network", use_dhcp_assigned_default_route: true
+* Используя вагрант развернул вторую ВМ и настроил в конфиге вагранта DHCP - config.vm.network "public_network", use_dhcp_assigned_default_route: true
 * Используя команду ssh-copy-id vagrant@192.168.88.198 подключился к "соседней" ВМ, результат:
   * ![Task-5](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task5.png)
-7. --
-8. Распишу по шагам
+6. 
+7. Распишу по шагам
 * Собрал 100 пакетов утилитой tcpdump и зприсал результат в файл - tcpdump -i eth0 -c 100 -w file.pcap
 * Установли tshark -  apt install tshark
 * Прочитал файл tshark-ом - tshark -r file.pcap
