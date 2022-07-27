@@ -29,3 +29,5 @@
 
 8. Скачал nmap и просканировал хост scanme.nmap.org, получил список открытых сервисов и портов
 * ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task8.png)
+9. Установил ufw, настроил для apache, ssh  и портов 22,80,443
+* ![Task-9](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/InfoSec/IS-task9.png)
