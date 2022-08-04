@@ -16,12 +16,12 @@
         fi
         done
 3. Скрипт ниже
- * #!/usr/bin/env bash
-    addres=(192.168.0.1:80 173.194.222.113:80 87.250.250.242:80)
-    for a in {1..5}
-    do
+ *      #!/usr/bin/env bash
+        addres=(192.168.0.1:80 173.194.222.113:80 87.250.250.242:80)
+        for a in {1..5}
+        do
         for i in ${addres[@]}
         do
         ( echo "proverka $i" ; curl --max-time 5 $i; ) >> /home/vagrant/script2.log
         done
-     done
+        done
