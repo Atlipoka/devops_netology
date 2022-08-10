@@ -69,7 +69,7 @@ done
 ### Ваш скрипт:
 ```bash
 while ((1==1))
-        do
+do
         a=$(curl -s -o /dev/null -w "%{http_code}" https://ya.ru)
         if (($a==0))
         then
@@ -79,7 +79,7 @@ while ((1==1))
         if (($a!=0))
          then exit
         fi
-        done
+done
 ```
 
 ## Обязательная задача 3
