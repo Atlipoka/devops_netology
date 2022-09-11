@@ -9,4 +9,4 @@
  * ``D:\Maxim\Education\Netology\Vagrant>vagrant -v | Vagrant 2.2.19``
  * ``root@vagrant:/etc/ansible# ansible --version | ansible 2.9.6``
 4. При выполнении задания появляется ошибка, выполнял на локальном ПК, ОС Windows 7
- * 
+ * ![Task4](https://github.com/Atlipoka/devops_netology/blob/main/ComputerNetwork/Lecture1/VT_DZ_lecture2.png)
