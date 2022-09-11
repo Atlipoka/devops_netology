@@ -7,3 +7,4 @@
 3. Версии программ по порядку
  * ``C:\Program Files\Oracle\VirtualBox>VBoxManage.exe --version | 6.1.34r150636``
  * ``D:\Maxim\Education\Netology\Vagrant>vagrant -v | Vagrant 2.2.19``
+ * ``root@vagrant:/etc/ansible# ansible --version | ansible 2.9.6``
