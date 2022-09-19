@@ -16,8 +16,7 @@
 3. Распишу по порядку:
  * Скачал образ Centos - ``root@vagrant:/data# docker pull centos``, назначил ему тэг ``root@vagrant:/data# docker tag centos:latest centos:v1.0`` и запустил контейнер с образом связав его с локальным репозиторием ``root@vagrant:/data# docker run -it -v /data:/data --name centos -d centos:v1.0``
  * Аналогично для образа Debian: создаие - ``root@vagrant:/data# docker pull debian``, тэг - ``root@vagrant:/data# docker tag debian:latest debian:v1.0`` и запуск контейнера - ``root@vagrant:/data# docker run -it -v /data:/data --name debian -d debian:v1.0``
- * Подключился с контенеру Centos - ``root@vagrant:/data# docker exec -it centos bash``,  создал текстовый файл и проверил его - 
-``[root@510aee99f433 /]# cd data
-[root@510aee99f433 data]# echo "This file was create on centos container" > centos.txt
-[root@510aee99f433 data]# ls
-centos.txt``
+ * Подключился к первому контенеру Centos - ``root@vagrant:/data# docker exec -it centos bash``,  создал текстовый файл- ``[root@510aee99f433 data]# echo "This file was create on centos container" > centos.txt``.
+ * Вернулся на локальную ОС и создал в директории /data текстовый файл host.txt - ``root@vagrant:/data# echo "This file was create on host OC" > host.txt``
+ * Подключился к первому контенеру Debian ``root@vagrant:/data# docker exec -it debian bash`` и проверил вывод обоих файлов из общей директории, файл созданный в контейнере Centos - ``root@14c564e1019f:/data# cat centos.txt`` вывод ``This file was create on centos container``; файл созданный на локальной ОС - ``root@14c564e1019f:/data# cat host.txt`` вывод ``This file was create on host OC``
+4. 
