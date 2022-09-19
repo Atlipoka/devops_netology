@@ -13,3 +13,11 @@
  * Мониторинг-стек на базе Prometheus и Grafana - физический сервер на которм развернуть Prometheus и в контейнерах развернуть Grafana, принцип работы таков, что прометеус является базой данных, а графана, использует хранилище прометеуса, строит визуальные представления.
  * MongoDB, как основное хранилище данных для java-приложения - физические сервера с виртуализацией. Из полученной информации из лекции, нельзя использовать хранилище в конейнерах, это имеет некоторые недостатки, возможнапотеря данных  при изменений, пересборке контейнера.
  * Gitlab сервер для реализации CI/CD процессов и приватный (закрытый) Docker Registry - Docker Registry на физическом сервисе для хранения образов, а gitlab сервер в контейнере для доставки образа.
+3. Распишу по порядку:
+ * Скачал образ Centos - ``root@vagrant:/data# docker pull centos``, назначил ему тэг ``root@vagrant:/data# docker tag centos:latest centos:v1.0`` и запустил контейнер с образом связав его с локальным репозиторием ``root@vagrant:/data# docker run -it -v /data:/data --name centos -d centos:v1.0``
+ * Аналогично для образа Debian: создаие - ``root@vagrant:/data# docker pull debian``, тэг - ``root@vagrant:/data# docker tag debian:latest debian:v1.0`` и запуск контейнера - ``root@vagrant:/data# docker run -it -v /data:/data --name debian -d debian:v1.0``
+ * Подключился с контенеру Centos - ``root@vagrant:/data# docker exec -it centos bash``,  создал текстовый файл и проверил его - 
+``[root@510aee99f433 /]# cd data
+[root@510aee99f433 data]# echo "This file was create on centos container" > centos.txt
+[root@510aee99f433 data]# ls
+centos.txt``
