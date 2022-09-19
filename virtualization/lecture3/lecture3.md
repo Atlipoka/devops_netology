@@ -19,4 +19,4 @@
  * Подключился к первому контенеру Centos - ``root@vagrant:/data# docker exec -it centos bash``,  создал текстовый файл- ``[root@510aee99f433 data]# echo "This file was create on centos container" > centos.txt``.
  * Вернулся на локальную ОС и создал в директории /data текстовый файл host.txt - ``root@vagrant:/data# echo "This file was create on host OC" > host.txt``
  * Подключился к первому контенеру Debian ``root@vagrant:/data# docker exec -it debian bash`` и проверил вывод обоих файлов из общей директории, файл созданный в контейнере Centos - ``root@14c564e1019f:/data# cat centos.txt`` вывод ``This file was create on centos container``; файл созданный на локальной ОС - ``root@14c564e1019f:/data# cat host.txt`` вывод ``This file was create on host OC``
-4. 
+4. Ссылка на репозиторий - https://hub.docker.com/layers/maximkabaev/devops_netology/ansible2.9.24/images/sha256-f1aa2c250688652a6446ef2ab926baef624b68a3c746db6f9bb96a2b7fe2fd18?context=repo
