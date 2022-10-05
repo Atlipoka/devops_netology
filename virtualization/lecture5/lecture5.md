@@ -3,4 +3,4 @@
  * Определение первой manager ноды производиться при вводе команды docker swarm init. После ввода коанды нода, с которой был инициализирован запрос, автоматически становиться manager. Для дальнейшего управления ролями используються команды docker node promote 'dns name node' (для добавление роли manager) и docker nome demote 'dns name node' (для удаления роли manager).
  * Overlay сети позволяют демонам докера взаимодействовать друг с другом в редиме влксетра, применяя дополнительную логическую надстройку над основной сетью. 
 2. Результат работ по развертыванию Docker Swarm кластера в Яндекс.Облаке
- * ![Task2](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-Task2.png)
+ * ![Task2](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-task2.png)
