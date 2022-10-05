@@ -7,3 +7,4 @@
 3. Ниже вывод стека сервисов в кластере Docker Swarm
  * ![Task3](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-task3.png)
 4. После применения команды на лидере docker swarm update --autolock=true была активирована функция автоматического блокировки роя, для разблокировки необходимо вводить  TLS ключ, который выдается просле ввода команды. После перезапуска сервиса docker каждая управляющая нода блокируется и доступ управляющим нода можео получить введя TLS ключ. Для разблокировки необходимо использовать команду docker swarm unlock, после чего необходимо будет ввести ключ шифрования.
+ * ![Task4](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-task4.png)
