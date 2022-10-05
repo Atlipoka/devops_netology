@@ -4,3 +4,5 @@
  * Overlay сети позволяют демонам докера взаимодействовать друг с другом в редиме влксетра, применяя дополнительную логическую надстройку над основной сетью. 
 2. Результат работ по развертыванию Docker Swarm кластера в Яндекс.Облаке
  * ![Task2](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-task2.png)
+3. Ниже вывод стека сервисов в кластере Docker Swarm
+ * ![Task3](https://github.com/Atlipoka/devops_netology/blob/main/virtualization/lecture5/Lecture5-task3.png)
