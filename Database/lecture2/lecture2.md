@@ -5,9 +5,9 @@
 -d postgres:12.12``
 2. Задание вополнял частично в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
  * Итоговый список БД
-  * ![task2-1](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-1.png)
+   * ![task2-1](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-1.png)
  * Описание таблиц
-  * ![task2-2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-2.png)
+   * ![task2-2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-2.png)
  * Запрос на получение списка пользователей с правами - ``SELECT grantee, table_catalog, table_name, privilege_type FROM information_schema.table_privileges WHERE table_name IN ('orders','clients');``
  * Полученный список
-  * [task2-4](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-4.png)
+   * [task2-4](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-4.png)
