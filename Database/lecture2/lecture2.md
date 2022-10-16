@@ -4,7 +4,8 @@
 -v "/home/vagrant/testdb/data/pgdata":/var/lib/postgresql/data -v "/home/vagrant/testdb/backup/pgbackup":/var/lib/postgresql/backup \
 -d postgres:12.12``
 2. Задание вополнял частично в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
- * Итоговый список БД - ``testdb-# \l
+ * Итоговый список БД - 
+ * ``testdb-# \l
                              List of databases
    Name    | Owner | Encoding |  Collate   |   Ctype    | Access privileges
 -----------+-------+----------+------------+------------+-------------------
