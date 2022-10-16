@@ -5,15 +5,6 @@
 -d postgres:12.12``
 2. Задание вополнял частично в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
  * Итоговый список БД - 
- * ``testdb-# \l
-                             List of databases
-   Name    | Owner | Encoding |  Collate   |   Ctype    | Access privileges
------------+-------+----------+------------+------------+-------------------
- postgres  | maxim | UTF8     | en_US.utf8 | en_US.utf8 |
- template0 | maxim | UTF8     | en_US.utf8 | en_US.utf8 | =c/maxim         +
-           |       |          |            |            | maxim=CTc/maxim
- template1 | maxim | UTF8     | en_US.utf8 | en_US.utf8 | =c/maxim         +
-           |       |          |            |            | maxim=CTc/maxim
- testdb    | maxim | UTF8     | en_US.utf8 | en_US.utf8 |
-(4 rows)``
- * 
+ * Описание таблиц - 
+ * Запрос на получение списка пользователей с правами - ``SELECT grantee, table_catalog, table_name, privilege_type FROM information_schema.table_privileges WHERE table_name IN ('orders','clients');``
+ * Полученный список - 
