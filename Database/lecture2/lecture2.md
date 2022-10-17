@@ -20,4 +20,8 @@
     * ``UPDATE orders SET наименование='Книга' WHERE id=(select id from clients where фамилия = 'Иванов Иван Иванович');``
     * ``UPDATE orders SET наименование='Монитор' WHERE id=(select id from clients where фамилия = 'Петров Петр Петрович');``
     * ``UPDATE orders SET наименование='Гитара' WHERE id=(select id from clients where фамилия = 'Иоганн Себастьян Бах');``
+  * Для получения списка записей использовал скрипт:
+    * ``select c.фамилия,o.наименование from clients c
+        join orders o on c.заказ=o.id
+        where o.наименование is not null``
  
