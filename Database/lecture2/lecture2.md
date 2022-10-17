@@ -12,6 +12,12 @@
   * Полученный список
     * ![task2-4](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task2-4.png)
 3. Задание выполнял в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
-  * Срипты для заполнения таблиц и получения кол-ва записей из таблиц
+  * Скрипты для заполнения таблиц и получения кол-ва записей из таблиц
     * ![task3-1](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task3-1.png)
+    * При выполнении подсчета результат по 5 строк в каждой таблице.
+4. Задание выполнял в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
+  * Для обновления записей использовал запросы:
+   * ``UPDATE orders SET наименование='Книга' WHERE id=(select id from clients where фамилия = 'Иванов Иван Иванович');
+     UPDATE orders SET наименование='Монитор' WHERE id=(select id from clients where фамилия = 'Петров Петр Петрович');
+     UPDATE orders SET наименование='Гитара' WHERE id=(select id from clients where фамилия = 'Иоганн Себастьян Бах');``
  
