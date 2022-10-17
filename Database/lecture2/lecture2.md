@@ -24,4 +24,5 @@
     * ``select c.фамилия,o.наименование from clients c
         join orders o on c.заказ=o.id
         where o.наименование is not null``
+   * Результат выполнения скпира выше - ![Task4](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task4.png)
  
