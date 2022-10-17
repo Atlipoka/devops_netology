@@ -25,3 +25,8 @@
 5. Задание выполнял в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
   * Результат выполнения запроса с использованием explain. Explain анализирует результат выполнения запроса, указывает, как запрос обрабатывается СУБД и предлагает варианты оптимизации запроса.
    * ![Task5](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture2/task5.png)
+6. Распишу по пордяку:
+  * Сохраням бэкап - ``pg_dump -U maxim testdb > /home/backup/pgbackup/testdb.backup``
+  * Стопим контейнер docker stop testdb
+  * Поднимаем новый контейнер - ``docker run --name testdb-1 -p 5432:5432 -e POSTGRES_USER=maxim -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=testdb -v "/home/data/":/home/vagrant/testdb-1/data/ -v "/home/backup/":/home/vagrant/testdb-1/backup/ -d postgres:12.12``
+  * 
