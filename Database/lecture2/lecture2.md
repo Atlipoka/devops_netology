@@ -18,6 +18,6 @@
 4. Задание выполнял в DBeaver, поэтому иногда могу присылать скриншоту не из консоли. Теперь по пунктам:
   * Для обновления записей использовал запросы:
     * ``UPDATE orders SET наименование='Книга' WHERE id=(select id from clients where фамилия = 'Иванов Иван Иванович');``
-      ``UPDATE orders SET наименование='Монитор' WHERE id=(select id from clients where фамилия = 'Петров Петр Петрович');``
-      ``UPDATE orders SET наименование='Гитара' WHERE id=(select id from clients where фамилия = 'Иоганн Себастьян Бах');``
+    * ``UPDATE orders SET наименование='Монитор' WHERE id=(select id from clients where фамилия = 'Петров Петр Петрович');``
+    * ``UPDATE orders SET наименование='Гитара' WHERE id=(select id from clients where фамилия = 'Иоганн Себастьян Бах');``
  
