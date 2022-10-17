@@ -29,4 +29,5 @@
   * Сохраням бэкап - ``pg_dump -U maxim testdb > /home/backup/pgbackup/testdb.backup``
   * Стопим контейнер docker stop testdb
   * Поднимаем новый контейнер - ``docker run --name testdb-1 -p 5432:5432 -e POSTGRES_USER=maxim -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=testdb -v "/home/data/":/home/vagrant/testdb-1/data/ -v "/home/backup/":/home/vagrant/testdb-1/backup/ -d postgres:12.12``
-  * 
+  * Копируем бэкап - ``docker cp testdb:/home/vagrant/testdb/backup/pgbackup/testdb.backup /home/vagrant/testdb/backup/pgbackup && docker cp /home/vagrant/testdb/backup/pgbackup testdb-1:/home/vagrant/testdb-1/backup/``
+  * Поднимаем БД из бэкапа - ``psql -U maxim -d testdb -f /home/vagrant/testdb-1/backup/pgbackup``
