@@ -20,6 +20,10 @@
   FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME UNBOUNDED``
   ATTRIBUTE '{"FName":"James", "LName":"Pretty"}';
   ```
-   * Добавил привелегий командой - ``GRANT SELECT ON test_db.* TO 'test'@'localhost';``
-   * Результаты о ползователе test из таблицы INFORMATION_SCHEMA.USER_ATTRIBUTES
-     * ![task2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture3/task2.png)
+  * Добавил привелегий командой - ``GRANT SELECT ON test_db.* TO 'test'@'localhost';``
+  * Результаты о ползователе test из таблицы INFORMATION_SCHEMA.USER_ATTRIBUTES
+    * ![task2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture3/task2.png)
+ 3. Распишу по пунктам:
+  * Посмотрел движок командой ``SELECT ENGINE FROM information_schema.TABLES where TABLE_NAME='orders';``
+  * Запросы, время выполнения и результаты из профайлера:
+    * ![task3](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture3/task3.png)
