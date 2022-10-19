@@ -4,3 +4,6 @@
   * Используя команду ``\s`` получил информацию о версии БД ``Server version: 8.0.31 MySQL Community Server - GPL``
   * Подключился к БД test_db ``use test_db`` и посмотрел список всех БД командой - ``SHOW TABLES;``, результат выполнения:
     * ![task1-1](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture3/task1-1.png)
+  * Ввел запрос ``select * from orders where price>300;`` и получил ответ:
+    * ![task1-2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture3/task1-2.png)
+2. 
