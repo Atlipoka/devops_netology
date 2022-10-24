@@ -24,4 +24,3 @@
         --Удаляем данные из orders по условиям price>499 и price<=499
         delete from orders where price>499;
         delete from orders where price<=499;
-        ```
