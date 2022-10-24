@@ -25,4 +25,4 @@
         delete from orders where price>499;
         delete from orders where price<=499;
   * Для избежания ручного зазделения данных можно было использовать параметр PARTITION BY при создании таблицы. PARTITION BY можно использовать с разными типами разбиения список или диапазон, все это необходимо продумывать на этапе создани таблицы.
-4. 
+4. Сделал бэкап БД test_database ``pg_dump -U maxim test_database > /home/vagrant/testdb/backup/test_database.sql`` и в созданном файле, для столбца title, добавил ограничение UNIQUE - ![task4](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture4/task4.png)
