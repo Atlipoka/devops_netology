@@ -12,14 +12,16 @@
   * Использовал ANALYZE на таблицу orders ``analyze orders;``
   * Вычислил столбец с максимальным значением еспользуя pg_stats - ``select avg_width,attname from pg_stats where tablename='orders' order by avg_width desc limit 1;``, результат - ![task2](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture4/task2.png)
 3. Результаты работы по шардированию таблицы orders:
-  * ```--создаем первую БД orders_1 с условием price>499
-create table orders_1 (like orders);
-insert into orders_1 select * from orders where price>499;
+  * ```
+  --создаем первую БД orders_1 с условием price>499
+        create table orders_1 (like orders);
+        insert into orders_1 select * from orders where price>499;
 
---создаем вторую БД orders_2 с условием price<=499
-create table orders_2 (like orders);
-insert into orders_2 select * from orders where price<=499;
+        --создаем вторую БД orders_2 с условием price<=499
+        create table orders_2 (like orders);
+        insert into orders_2 select * from orders where price<=499;
 
---Удаляем данные из orders по условиям price>499 и price<=499
-delete from orders where price>499;
-delete from orders where price<=499;```
+        --Удаляем данные из orders по условиям price>499 и price<=499
+        delete from orders where price>499;
+        delete from orders where price<=499;
+        ```
