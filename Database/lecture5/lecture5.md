@@ -11,4 +11,5 @@
    USER elasticsearch
    # открываем порты
    EXPOSE 9200 9300
+  ```
   * Ссылка на созданный образ в DockerHub ![Kabaev_Elasticsearch](https://hub.docker.com/layers/maximkabaev/devops_netology/elasticsearch/images/sha256-f61d891c89427fe8e756dfec4ab714c107940cab8603e7bde40820bea9ad0e92?context=explore)
