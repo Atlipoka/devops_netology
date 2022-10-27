@@ -16,14 +16,14 @@
   * Запрос и ответ от elasticsearch по пути ``/``:
     * ![task1](https://github.com/Atlipoka/devops_netology/blob/main/Database/lecture5/task1.png)
 2. Распишу по шагам:
- * Создал индексы и получил результат используя Postman
+ * Создал индексы и получил результат по пути ``localhost:9200/_cat/indices``
    * ```
      green  open .geoip_databases N9sq5GuEQQ2UceE1Yn7ofQ 1 0 41 0 39.1mb 39.1mb
      yellow open ind-1            9BK0sEK_Ta2n0HWgArC_GQ 1 1  0 0   226b   226b
      yellow open ind-3            wJeqFPidQYyvo2PQaTWUHA 1 1  0 0   226b   226b
      yellow open ind-2            zFZkO4smQOmGfa_IYPsAlg 1 1  0 0   226b   226b
      ```
-  * Состояние кластера получил по пути 
+  * Состояние кластера получил по пути ``localhost:9200/_cluster/health``
     * ```
       {
       "cluster_name": "netology_test",
@@ -43,3 +43,4 @@
       "active_shards_percent_as_number": 66.66666666666666
        }
        ```
+    * Кластер в статусе yellow потому, что 3 secondary шарда находяться в статусе unassigned.
