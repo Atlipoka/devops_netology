@@ -46,7 +46,7 @@
     * Кластер в статусе yellow потому, что 3 secondary шарда находяться в статусе unassigned.
 3. Распишу по шагам:
  * Зарегестрировал репозиторий
-   *```root@vagrant:/usr/share/elasticsearch/snapshots# curl -X PUT "localhost:9200/_snapshot/netology_backup?verify=false&pretty" -H 'Content-Type: applica
+   * ```root@vagrant:/usr/share/elasticsearch/snapshots# curl -X PUT "localhost:9200/_snapshot/netology_backup?verify=false&pretty" -H 'Content-Type: applica
        tion/json' -d'{"type": "fs","settings": {"location": "/usr/share/elasticsearch/snapshots"}}'
        {
        "acknowledged" : true
