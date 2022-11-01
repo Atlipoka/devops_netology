@@ -70,3 +70,8 @@
      -rw-rw-r-- 1 elasticsearch elasticsearch 29340 Nov  1 19:20 meta-jMD_sR0IQcmnWvhi_dzKPg.dat
      -rw-rw-r-- 1 elasticsearch elasticsearch   703 Nov  1 19:20 snap-jMD_sR0IQcmnWvhi_dzKPg.dat
      ```
+ * Удалил индекс test и создал индекс test-2
+   * ```
+     yellow open test-2           U2m12UB4T3inAl9bUdCD_Q 1 1  0 0   226b   226b
+     green  open .geoip_databases AyPii9qERdGmnGXmYhj9Uw 1 0 40 0 38.4mb 38.4mb
+     ```
