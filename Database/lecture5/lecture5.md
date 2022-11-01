@@ -47,8 +47,8 @@
 3. Распишу по шагам:
  * Зарегестрировал репозиторий
    * ```root@vagrant:/usr/share/elasticsearch/snapshots# curl -X PUT "localhost:9200/_snapshot/netology_backup?verify=false&pretty" -H 'Content-Type: applica
-       tion/json' -d'{"type": "fs","settings": {"location": "/usr/share/elasticsearch/snapshots"}}'
-       {
-       "acknowledged" : true
-       }
+        tion/json' -d'{"type": "fs","settings": {"location": "/usr/share/elasticsearch/snapshots"}}'
+        {
+        "acknowledged" : true
+        }
      ``` 
