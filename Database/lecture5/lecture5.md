@@ -58,3 +58,15 @@
      green  open .geoip_databases FJ8s1UoFSti0q1NInLkGPQ 1 0 40 0 38.4mb 38.4mb
      yellow open test             6SBhl1DcQrmVnh1dlo2-EA 1 1  0 0   226b   226b
      ```
+ * Создал снапшот, результат
+   * ```
+     elasticsearch@f60728af3f22:~/snapshots$ ll
+     total 60
+     drwxr-xr-x 1 elasticsearch root           4096 Nov  1 19:20 ./
+     drwxrwxr-x 1 root          root           4096 Nov  1 19:19 ../
+     -rw-rw-r-- 1 elasticsearch elasticsearch  1416 Nov  1 19:20 index-0
+     -rw-rw-r-- 1 elasticsearch elasticsearch     8 Nov  1 19:20 index.latest
+     drwxrwxr-x 6 elasticsearch elasticsearch  4096 Nov  1 19:20 indices/
+     -rw-rw-r-- 1 elasticsearch elasticsearch 29340 Nov  1 19:20 meta-jMD_sR0IQcmnWvhi_dzKPg.dat
+     -rw-rw-r-- 1 elasticsearch elasticsearch   703 Nov  1 19:20 snap-jMD_sR0IQcmnWvhi_dzKPg.dat
+     ```
