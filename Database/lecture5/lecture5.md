@@ -55,8 +55,7 @@
      ``` 
  * Создал индекс test
    * ```
-     green  open .geoip_databases FJ8s1UoFSti0q1NInLkGPQ 1 0 40 0 38.4mb 38.4mb
-     yellow open test             6SBhl1DcQrmVnh1dlo2-EA 1 1  0 0   226b   226b
+     yellow open test   9jdzujwbSJqNTledprrrdg 1 1 0 0 226b 226b
      ```
  * Создал снапшот, результат
    * ```
@@ -72,6 +71,16 @@
      ```
  * Удалил индекс test и создал индекс test-2
    * ```
-     yellow open test-2           U2m12UB4T3inAl9bUdCD_Q 1 1  0 0   226b   226b
-     green  open .geoip_databases AyPii9qERdGmnGXmYhj9Uw 1 0 40 0 38.4mb 38.4mb
+     yellow open test-2 xkXsmszWSI65PF0QxGla2w 1 1 0 0 226b 226b
      ```
+  * Восстановил индекс и получил итоговый список индексов
+    * ```
+      localhost:9200/_snapshot/netology_backup/snap/_restore
+      {
+      "indices": "test"
+      }
+      ```
+     * ```
+       yellow open test-2 xkXsmszWSI65PF0QxGla2w 1 1 0 0 226b 226b
+       yellow open test   9jdzujwbSJqNTledprrrdg 1 1 0 0 226b 226b
+       ```
