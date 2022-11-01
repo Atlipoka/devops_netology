@@ -53,3 +53,8 @@
         "acknowledged" : true
         }
      ``` 
+ * Создал индекс test
+   * ```
+     green  open .geoip_databases FJ8s1UoFSti0q1NInLkGPQ 1 0 40 0 38.4mb 38.4mb
+     yellow open test             6SBhl1DcQrmVnh1dlo2-EA 1 1  0 0   226b   226b
+     ```
