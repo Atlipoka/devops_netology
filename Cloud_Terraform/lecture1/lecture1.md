@@ -10,3 +10,21 @@
     root@vagrant:/home/vagrant/terraform# terraform --version
     Terraform v1.3.0
     ```
+3. Распишу по порядку:
+  * Скачал архив со сторой версией терраформ и распаковал его:
+    * ```
+      wget https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
+      unzip terraform_0.12.20_linux_amd64.zip
+      ```
+   * Создал символьные ссылки для тарой и новой версии:
+     * ```
+       ln -s /home/vagrant/terraform/tf12/terraform /usr/bin/terraform12
+       ln -s /usr/bin/terraform /usr/bin/terraform1.3.0
+       ```
+    * Проверил версии согласно переименованным инстансам:
+      * ```
+        root@vagrant:/usr/bin# terraform12 --version
+        Terraform v0.12.20
+        root@vagrant:/usr/bin# terraform1.3.0 --version
+        Terraform v1.3.0
+        ```
