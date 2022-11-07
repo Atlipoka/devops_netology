@@ -21,8 +21,8 @@
        ln -s /home/vagrant/terraform/tf12/terraform /usr/bin/terraform12
        ln -s /usr/bin/terraform /usr/bin/terraform1.3.0
        ```
-    * Проверил версии согласно переименованным инстансам:
-      * ```
+   * Проверил версии согласно переименованным инстансам:
+     * ```
         root@vagrant:/usr/bin# terraform12 --version
         Terraform v0.12.20
         root@vagrant:/usr/bin# terraform1.3.0 --version
