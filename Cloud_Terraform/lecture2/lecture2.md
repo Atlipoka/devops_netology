@@ -37,18 +37,19 @@
             zone = "ru-central1-a"
         }
         ```
-   * Создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
+   * Эксортировал переменные и присвоил им значения, создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
+      * ``export TF_VAR_yc_token=y0_AgAAAAAFCqIMAATuwQAAAADPgWmXyp3b8KykQm2FmCPNHFP5kxzo0Zg terraform apply`` ``export TF_VAR_yc_cloud_id=b1g9tskfs4f4itprsns9 terraform apply`` ``export TF_VAR_yc_folder_id=b1gjjlp1h6jc8jeaclal terraform apply``
       * ```
         variable "yc_token" {
-         default = "y0_AgAAAAAFCqIMAATuwQAAAADPgWmXyp3b8KykQm2FmCPNHFP5kxzo0Zg"
+         default = ""
         }
 
         variable "yc_cloud_id" {
-         default = "b1g9tskfs4f4itprsns9"
+         default = ""
          }
 
         variable "yc_folder_id" {
-         default = "b1gjjlp1h6jc8jeaclal"
+         default = ""
          }
 
         variable "yc_region" {
