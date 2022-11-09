@@ -15,3 +15,9 @@
         --folder-name b1gjjlp1h6jc8jeaclal \
         --output key.json
         ```
+   * Создал CLI профиль
+      * ```
+        root@vagrant:/home/vagrant/terraform# yc config profile list
+        default
+        terraform ACTIVE
+        ```
