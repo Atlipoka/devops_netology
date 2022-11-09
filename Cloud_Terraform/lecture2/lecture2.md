@@ -21,3 +21,20 @@
         default
         terraform ACTIVE
         ```
+    * Присвоил значения для параметров ``yc config set service-account-key key.json && yc config set cloud-id b1g9tskfs4f4itprsns9 && yc config set folder-id b1gjjlp1h6jc8jeaclal``
+    * В рабочей папке создал файл main.tf и внес в него данные
+      * ```
+        terraform {
+         required_providers {
+            yandex = {
+               source = "yandex-cloud/yandex"
+            }
+          }
+         required_version = ">= 0.13"
+        }
+
+         provider "yandex" {
+            zone = "ru-central1-a"
+        }
+        ```
+        
