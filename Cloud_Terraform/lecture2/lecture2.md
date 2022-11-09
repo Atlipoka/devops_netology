@@ -1,4 +1,4 @@
-1. Ранее мы уже инициализировали терраформ, поэтому процесс создания описывать не буду, начну с того, что касается Терраформа:
+1. Ранее мы уже использовали терраформ на лекциях по фиртуализации, поэтому процесс создания описывать не буду, начну с того, что касается Терраформа:
  * Сервисный аккуант уже был создан с ролью editor
     * ```
       root@vagrant:/home/vagrant/terraform# yc iam service-account list
@@ -37,4 +37,21 @@
             zone = "ru-central1-a"
         }
         ```
-        
+    * Создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
+      * ```
+        variable "yc_token" {
+         default = "y0_AgAAAAAFCqIMAATuwQAAAADPgWmXyp3b8KykQm2FmCPNHFP5kxzo0Zg"
+        }
+
+        variable "yc_cloud_id" {
+         default = "b1g9tskfs4f4itprsns9"
+         }
+
+        variable "yc_folder_id" {
+         default = "b1gjjlp1h6jc8jeaclal"
+         }
+
+        variable "yc_region" {
+         default = "ru-central1-a"
+         }
+        ```
