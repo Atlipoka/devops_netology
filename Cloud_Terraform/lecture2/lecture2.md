@@ -55,3 +55,11 @@
          default = "ru-central1-a"
          }
         ```
+       * ```
+         provider "yandex" {
+          token                    = "vars.yc_token"
+          cloud_id                 = "vars.yc_cloud_id"
+          folder_id                = "vars.yc_folder_id"
+          zone                     = "vars.yc_region"
+         }
+         ```
