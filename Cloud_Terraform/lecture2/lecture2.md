@@ -37,7 +37,7 @@
             zone = "ru-central1-a"
         }
         ```
-    * Создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
+   * Создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
       * ```
         variable "yc_token" {
          default = "y0_AgAAAAAFCqIMAATuwQAAAADPgWmXyp3b8KykQm2FmCPNHFP5kxzo0Zg"
