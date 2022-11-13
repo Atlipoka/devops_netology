@@ -32,13 +32,8 @@
           }
          required_version = ">= 0.13"
         }
-
-         provider "yandex" {
-            zone = "ru-central1-a"
-        }
         ```
-   * Эксортировал переменные и присвоил им значения(значения переменных указывать не буду), создал файл с переменными vars.tf и файл provisers.tf, где указал данные провайде yc
-      * ``export TF_VAR_yc_token=my_token terraform apply`` ``export TF_VAR_yc_cloud_id=my_cloud terraform apply`` ``export TF_VAR_yc_folder_id=my_folder terraform apply``
+   * Cоздал файл с переменными var.tf и файл provisers.tf, где указал данные о провайдере yc
       * ```
         variable "yc_token" {
          default = ""
@@ -58,9 +53,12 @@
         ```
        * ```
          provider "yandex" {
-          token                    = "vars.yc_token"
-          cloud_id                 = "vars.yc_cloud_id"
-          folder_id                = "vars.yc_folder_id"
-          zone                     = "vars.yc_region"
+          token                    = var.yc_token
+          cloud_id                 = var.yc_cloud_id
+          folder_id                = var.yc_folder_id
+          zone                     = var.yc_region
          }
          ```
+2. Отвечу по порядку.
+   * Если я правильно понял, то создать собственный образ можно при помощи утилиты Packer.
+   * Заполнил план создания инфраструктуры, все исходники тут - 
