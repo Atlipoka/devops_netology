@@ -63,8 +63,9 @@
    * Если я правильно понял, то создать собственный образ можно при помощи утилиты Packer.
    * Заполнил план создания инфраструктуры, все исходники тут - [ЖМИ](https://github.com/Atlipoka/devops_netology/tree/main/Cloud_Terraform/lecture2/terraform)
    * Результат выполнения ``terraform plan``
-      * ```
-        root@vagrant:/home/vagrant/terraform# terraform plan
+      * 
+```
+root@vagrant:/home/vagrant/terraform# terraform plan
 data.yandex_compute_image.ubuntu_image: Reading...
 data.yandex_compute_image.ubuntu_image: Read complete after 0s [id=fd8kdq6d0p8sij7h5qe3]
 
@@ -162,4 +163,4 @@ Terraform will perform the following actions:
 
 Plan: 3 to add, 0 to change, 0 to destroy.
 
-        ```
+```
