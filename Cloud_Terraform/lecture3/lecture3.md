@@ -1,5 +1,5 @@
 1. Распишу по порядку:
-  * Создал корзину, сервисны аккаунт уже был, так-же зарегестировал корзину в терраформе:
+  * Создал корзину, сервисный аккаунт уже был, так-же зарегестировал корзину в терраформе:
  ```
  terraform {
  required_providers {
@@ -11,7 +11,7 @@ required_version = ">= 0.13"
 
 backend "s3" {
   endpoint   = "storage.yandexcloud.net"
-  bucket     = "netology"
+  bucket     = "my-netology-1992"
   region     = "ru-central1"
   key        = "terraform.tfstate"
   access_key = "YCA..."
