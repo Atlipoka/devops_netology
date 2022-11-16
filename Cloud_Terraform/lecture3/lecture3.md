@@ -1,6 +1,5 @@
 1. Распишу по порядку:
-  * Создал корзину и назначил ей роль и сервисный аккаунт ``yc resource-manager folder add-access-binding netology --service-account-name netology --role admin``
-  * Зарегестрировал корзину в терраформе:
+  * Создал корзину, сервисны аккаунт уже был, так-же зарегестировал корзину в терраформе:
  ```
  terraform {
  required_providers {
