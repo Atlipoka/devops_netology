@@ -2,3 +2,4 @@
   * ![PLAN](https://github.com/Atlipoka/devops_netology/blob/main/Cloud_Terraform/lecture4/task1-1.png)
   * ![APPLY](https://github.com/Atlipoka/devops_netology/blob/main/Cloud_Terraform/lecture4/task1-2.png)
 2. Конфиги Анлантса [Server.yaml](https://github.com/Atlipoka/terraform/blob/master/server.yaml) и [Atlantis.yaml](https://github.com/Atlipoka/terraform/blob/master/atlantis.yaml)
+3. Инстанст не создал, извиняюсь, но создал сети используя модуль, все доступно по пути - https://github.com/Atlipoka/terraform
