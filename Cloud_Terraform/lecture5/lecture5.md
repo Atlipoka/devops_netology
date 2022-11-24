@@ -28,3 +28,19 @@ func main() {
 	println(y)
 }
 ```
+Числа от 1 до 100 кратные 3
+```
+package main
+
+import "fmt"
+
+func main() {
+	s := []int{}
+	for i := 0; i <= 100; i++ {
+		if i%3 == 0 {
+			s = append(s, i)
+		}
+	}
+	fmt.Println(s)
+}
+```
