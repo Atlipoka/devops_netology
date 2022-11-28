@@ -138,4 +138,38 @@ $ANSIBLE_VAULT;1.1;AES256
 62366661653939393762306533383338313362326264626437306133346433643933316436333032
 3261663665643862656362386236326137356631376364663937
 ```
-8. апапрапр
+8. Проверил работу для окружения prod указав ключ --ask-vault-pass
+```
+Vault password:
+
+PLAY [Print os facts] ***********
+
+
+TASK [Gathering Facts] **********
+
+ok: [centos7]
+ok: [ubuntu]
+
+TASK [Print OS] *****************
+
+ok: [centos7] => {
+    "msg": "Ubuntu"
+}
+ok: [ubuntu] => {
+    "msg": "Ubuntu"
+}
+
+TASK [Print fact] ***************
+
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [ubuntu] => {
+    "msg": "deb default fact"
+}
+
+PLAY RECAP **********************
+
+centos7                    : ok=3
+ubuntu                     : ok=3
+```
