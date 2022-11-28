@@ -50,3 +50,37 @@ PLAY RECAP **********************
 
 localhost                  : ok=3
 ```
+3. Тестовое окружение уже было создано ранее.
+4. Результат выполнения playbook для prod.yml
+```
+PLAY [Print os facts] ************************
+
+
+TASK [Gathering Facts] ***********************
+
+ok: [ubuntu]
+ok: [centos7]
+
+TASK [Print OS] ******************************
+
+ok: [centos7] => {
+    "msg": "Ubuntu"
+}
+ok: [ubuntu] => {
+    "msg": "Ubuntu"
+}
+
+TASK [Print fact] ****************************
+
+ok: [centos7] => {
+    "msg": "el"
+}
+ok: [ubuntu] => {
+    "msg": "deb"
+}
+
+PLAY RECAP ***********************************
+
+centos7                    : ok=3    changed=0
+ubuntu                     : ok=3    changed=0
+```
