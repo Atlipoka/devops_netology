@@ -84,3 +84,37 @@ PLAY RECAP ***********************************
 centos7                    : ok=3    changed=0
 ubuntu                     : ok=3    changed=0
 ```
+5. Изменил фокты для окружения prod.yml
+```
+PLAY [Print os facts] ************
+
+
+TASK [Gathering Facts] ***********
+
+ok: [centos7]
+ok: [ubuntu]
+
+TASK [Print OS] ******************
+
+ok: [centos7] => {
+    "msg": "Ubuntu"
+}
+ok: [ubuntu] => {
+    "msg": "Ubuntu"
+}
+
+TASK [Print fact] ****************
+
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [ubuntu] => {
+    "msg": "deb default fact"
+}
+
+PLAY RECAP ***********************
+
+centos7                    : ok=3
+ubuntu                     : ok=3
+```
+7. ffgdfd
