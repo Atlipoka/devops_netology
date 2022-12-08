@@ -1,0 +1,91 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  vars_files: /home/vagrant/ansible/mnt-homeworks/08-ansible-03-yandex/Ansible/lecture3/group_vars/clickhouse/vars.yml
+  handlers:
+    - name: Restart clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+  tasks:
+    - block:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_all.deb"
+            dest: "./{{ item }}_{{ clickhouse_version }}.deb"
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse-common-static distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
+            dest: "./clickhouse-common-static_{{ clickhouse_version }}.deb"
+
+    - name: Install package
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        deb: "{{ item }}"
+      with_items:
+        - ./clickhouse-common-static_{{ clickhouse_version }}.deb
+        - ./clickhouse-server_{{ clickhouse_version }}.deb
+        - ./clickhouse-client_{{ clickhouse_version }}.deb
+      notify: Restart clickhouse service
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Create database
+      ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc !=82
+      changed_when: create_db.rc == 0
+
+- name: Install vector
+  hosts: vector
+  vars_files: /home/vagrant/ansible/mnt-homeworks/08-ansible-03-yandex/Ansible/lecture3/group_vars/vector/vars.yml
+  tasks:
+    - block:
+        - name: Get vector distrib
+          ansible.builtin.get_url:
+            url: "https://packages.timber.io/vector/{{ version }}/vector_{{ version }}-1_amd64.deb"
+            dest: "./vector_{{ version }}-1.deb"
+
+    - name: Install vector
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        deb: ./vector_{{ version }}-1.deb
+
+- name: Install nginx and git
+  hosts: lighthouse
+  tasks:
+     - name: Get distrib
+       become: true
+       ansible.builtin.apt:
+         name:
+         - nginx
+         - git
+
+- name: Install lighthouse
+  hosts: lighthouse
+  handlers:
+  - name: Restart nginx
+    become: true
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
+  tasks:
+
+    - name: clean directory
+      ansible.builtin.file:
+        path: /var/www/html/*.html
+        state: absent
+
+    - name: Clone lighthouse
+      become: true
+      git:
+        repo: git@github.com:VKCOM/lighthouse.git
+        version: master
+        dest: /var/www/html/
+        accept_hostkey: yes
+      notify: Restart nginx
