@@ -8,6 +8,6 @@
 
 Плейбук разделился на роли, ниже ссылки на роли и остновной плейбук
 
-[vector-role]()
-[ligthouse-role]()
-[main playbook]()
+* [vector-role]()
+* [ligthouse-role]()
+* [main playbook](https://github.com/Atlipoka/devops_netology/tree/main/Ansible/lecture4)
