@@ -1,0 +1,11 @@
+---
+- block:
+    - name: Get vector distrib
+      ansible.builtin.get_url:
+         url: "https://packages.timber.io/vector/{{ version }}/vector_{{ version }}-1_amd64.deb"
+         dest: "./vector_{{ version }}-1.deb"
+- name: Install vector
+  become: true
+  ansible.builtin.apt:
+    force_apt_get: true
+    deb: ./vector_{{ version }}-1.deb

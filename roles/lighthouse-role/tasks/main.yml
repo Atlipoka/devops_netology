@@ -1,0 +1,14 @@
+---
+- name: clean directory
+  ansible.builtin.file:
+    path: /var/www/html/*.html
+    state: absent
+
+- name: Clone lighthouse
+  become: true
+  git:
+    repo: git@github.com:VKCOM/lighthouse.git
+    version: master
+    dest: /var/www/html/
+    accept_hostkey: yes
+  notify: Restart nginx
