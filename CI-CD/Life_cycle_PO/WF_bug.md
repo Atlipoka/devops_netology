@@ -1,3 +1,4 @@
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
 <workflow>
@@ -360,3 +361,4 @@
     </step>
   </steps>
 </workflow>
+```
