@@ -31,8 +31,8 @@
  * VictoriaMetrics - гибридная модель.
  * Nagios - pull модель.
 7. Прикладываю скриншот выполнения
- * ![Task-7]()
+ * ![Task-7](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task7.png)
 8. Прикладываю скриншот выполнения
- * ![Task-8]()
+ * ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task8.png)
 9. Прикладываю скриншот выполнения
- * ![Task-9]()
+ * ![Task-9](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task9.png)
