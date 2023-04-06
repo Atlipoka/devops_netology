@@ -36,3 +36,53 @@
  * ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task8.png)
 9. Прикладываю скриншот выполнения
  * ![Task-9](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task9.png)
+10. Доп. задание:
+ * Скрипт
+```
+# usr/bin/python3
+
+## Import block
+import datetime
+import json
+import re
+import subprocess
+
+## Variables block
+log = datetime.datetime.now().strftime("%Y-%m-%d-awesome-monitoring.log")
+dt = datetime.datetime.now()
+dt = str(dt)
+
+## Set in variables data in needed format
+with open(log,'a') as date:
+   date.write('\n'+dt+'\n')
+
+## Get info about Memory and write it in log file
+with open('/proc/meminfo','r',buffering=5) as f1, open(log,'a') as f2:
+    f1.seek(0)
+    f3=f1.read(55)
+    f3=f3.replace('\n','","')
+    f3=f3.replace(' ','')
+    f3=f3.replace(':','": "')
+    f2.write('{"Memory_Info": ["'+f3+'"]}'+'\n')
+
+## Get info about CPU and write it in log file
+with open('/proc/loadavg','r') as f4, open(log,'a') as f5:
+    f6=f4.read(25)
+    f6=f6.replace(' ','","')
+    f5.write('{"CPU_Info": ["'+f6+'"]}'+'\n')
+
+## Get info about Disk usage and write it in log file
+with open('/proc/diskstats','r') as f7, open(log,'a') as f8:
+    f7.seek(405)
+    f9=f7.read(73)
+    f9 =f9.replace(' ','","')
+    f8.write('{"Disk_Info": ["'+f9+'"]}'+'\n')
+
+## Get info about uptime and write it in log file
+with open('/proc/uptime','r') as f10, open(log,'a') as f11:
+    f12=f10.read(8)
+    f11.write('{"UpTime": "'+f12+'"}')
+```
+ * Cron расписание - * * * * * python3 /home/vagrant/mem.py
+ * Как импорт выглядит в файле - 
+
