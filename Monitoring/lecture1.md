@@ -84,5 +84,5 @@ with open('/proc/uptime','r') as f10, open(log,'a') as f11:
     f11.write('{"UpTime": "'+f12+'"}')
 ```
  * Cron расписание - * * * * * python3 /home/vagrant/mem.py
- * Как импорт выглядит в файле - ![Task-10](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task10.png)
+ * Как импорт выглядит в файле - ![Task-10](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture7-task10.png)
 
