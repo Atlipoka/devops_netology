@@ -10,4 +10,4 @@
  * ![task3-1](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture2-taks3-1.png)
  * ![task3-2](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture2-taks3-2.png)
 4. Json макет созданного дашборда
- * Взять ТУТ
+ * Взять ![JSON](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/Dashboard_JsonModel.json)
