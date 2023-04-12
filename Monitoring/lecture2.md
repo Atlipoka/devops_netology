@@ -9,4 +9,5 @@
 3. Скриншот полсе настройки алертов на панелях дашборда и настроенный канал нотификации
  * ![task3-1](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture2-taks3-1.png)
  * ![task3-2](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture2-taks3-2.png)
-6. Json макет созданного дашборда
+4. Json макет созданного дашборда
+ * Взять ТУТ
