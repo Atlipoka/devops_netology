@@ -33,9 +33,9 @@
 7. Прикладываю скриншот выполнения
  * ![Task-7](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task7.png)
 8. Прикладываю скриншот выполнения
- * ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task8.png)
+ * ![Task-8](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task8-1.png)
 9. Прикладываю скриншот выполнения
- * ![Task-9](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task9.png)
+ * ![Task-9](https://github.com/Atlipoka/devops_netology/blob/main/Monitoring/lecture1-task9-1.png)
 10. Доп. задание:
  * Скрипт
 ```
