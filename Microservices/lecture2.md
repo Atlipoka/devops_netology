@@ -4,6 +4,8 @@
 |--------------|------------------|
 | Kong Gateway | Hfcdmkffjfmfgflg |
 | Apache APISIX | Hfcdmkffjfmfgflg |
+| Tyk | Hfcdmkffjfmfgflg |
+| Nginx | dfdfdfdff |
 
 
 2. dffdgfdgfdg
