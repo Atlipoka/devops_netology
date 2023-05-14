@@ -1,8 +1,9 @@
-1. Список ПО для реализации API Gateway
+1. Список ПО для реализации API Gateway:
 
 | ПО           | Особенности ПО   |
 |--------------|------------------|
 | Kong Gateway | Hfcdmkffjfmfgflg |
+| Apache APISIX | Hfcdmkffjfmfgflg |
 
 
 2. dffdgfdgfdg
