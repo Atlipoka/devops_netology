@@ -1,11 +1,11 @@
 1. Список ПО для реализации API Gateway:
 
-| ПО           | Особенности ПО   |
-|--------------|------------------|
-| Kong Gateway | Hfcdmkffjfmfgflg |
-| Apache APISIX | Hfcdmkffjfmfgflg |
-| Tyk | Hfcdmkffjfmfgflg |
-| Nginx | dfdfdfdff |
+| ПО | Маршрутизация | Аутентификация | Терминация HTTPS |
+|---|---|
+| Kong Gateway | + |
+| Apache APISIX | + |
+| Tyk | + |
+| Nginx | + |
 
 
 2. dffdgfdgfdg
