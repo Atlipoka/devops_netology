@@ -2,10 +2,10 @@
 
 | ПО | Маршрутизация | Аутентификация | Терминация HTTPS |
 |---|---|
-| Kong Gateway | + |
-| Apache APISIX | + |
-| Tyk | + |
-| Nginx | + |
+| Kong Gateway | + | + | + |
+| Apache APISIX | + | + | + |
+| Tyk | + | + | + |
+| Nginx | + | + | + |
 
 
 2. dffdgfdgfdg
