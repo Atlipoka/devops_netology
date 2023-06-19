@@ -14,7 +14,7 @@ vagrant@vagrant:~$ microk8s enable dashboard
 ```
 vagrant@vagrant:~$ microk8s enable cert-manager
 ...
-microk8s kubectl apply -f - <<EOF
+vagrant@vagrant:~$ microk8s kubectl apply -f - <<EOF
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
