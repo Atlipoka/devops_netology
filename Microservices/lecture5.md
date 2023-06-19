@@ -47,7 +47,7 @@ WARNING: This version information is deprecated and will be replaced with the ou
 Client Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.2", GitCommit:"7f6f68fdabc4df88cfea2dcf9a19b2b830f1e647", GitTreeState:"clean", BuildDate:"2023-05-17T14:20:07Z", GoVersion:"go1.20.4", Compiler:"gc", Platform:"linux/amd64"}
 Kustomize Version: v5.0.1
 ```
-2. Для корретной настройки подключения к кластеру необходимо задать значение для переменной KUBECONFIG. Я сделал так, нашел где лешит кофниг кластера mickrok8s и копировал конфигурационный файл в папку .kube в домашней директорииЮ получилось так - cp /var/snap/microk8s/current/credentials/client.config ~/.kube/config. После этого нзначил переменную - export KUBECONFIG=~/.kube/config
+2. Для корретной настройки подключения к кластеру необходимо задать значение для переменной KUBECONFIG. Я сделал так, нашел где лешит кофниг кластера mickrok8s и копировал конфигурационный файл в папку .kube в домашней директории, получилось так ```cp /var/snap/microk8s/current/credentials/client.config ~/.kube/config```. После этого нзначил переменную - export KUBECONFIG=~/.kube/config
 3. Для проброса порта использовал комнду
 ```
 vagrant@vagrant:~$ microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443
