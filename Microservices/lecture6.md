@@ -85,3 +85,33 @@ spec:
     ports:
     - containerPort: 8080
 ```
+2. Проброс порта для Service ```vagrant@vagrant:~/kubernetes$ kubectl port-forward --address 127.0.0.1 svc/netology-web-service :80``` и использования curl, для проверки работоспособности (локальный порт не прописывал специально, чтоб определилися любой свободный):
+```
+vagrant@vagrant:~$ curl http://127.0.0.1:33887
+
+Hostname: netology-web
+
+Pod Information:
+        -no pod information available-
+
+Server values:
+        server_version=nginx: 1.12.2 - lua: 10010
+
+Request Information:
+        client_address=127.0.0.1
+        method=GET
+        real path=/
+        query=
+        request_version=1.1
+        request_scheme=http
+        request_uri=http://127.0.0.1:8080/
+
+Request Headers:
+        accept=*/*
+        host=127.0.0.1:33887
+        user-agent=curl/7.68.0
+
+Request Body:
+        -no body in request-
+
+```
