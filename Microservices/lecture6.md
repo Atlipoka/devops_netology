@@ -41,17 +41,6 @@ Request Headers:
 
 Request Body:
         -no body in request-
-
-vagrant@vagrant:~$ curl http://127.0.0.1:39743
-
-
-Hostname: hello-world
-
-Pod Information:
-        -no pod information available-
-
-Server values:
-        server_version=nginx: 1.12.2 - lua: 10010
 ```
 ***
 Создание сервиса и подключение к Pod
