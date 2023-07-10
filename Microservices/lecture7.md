@@ -32,4 +32,6 @@ spec:
         - containerPort: 80
 
 vagrant@vagrant:~/kubernetes/kuber_RunApp$ microk8s kubectl create -f deployment.yaml
+
+![task-7-1](https://github.com/Atlipoka/devops_netology/blob/main/Microservices/lecture7-1.png)
 ```
