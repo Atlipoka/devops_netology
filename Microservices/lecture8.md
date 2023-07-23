@@ -78,9 +78,6 @@ vagrant@vagrant:~/kubernetes/kuber_Network1$ kubectl get svc/myservice -o wide
 NAME        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE   SELECTOR
 myservice   ClusterIP   10.152.183.180   <none>        9001/TCP,9002/TCP   2d    app=nginx
 vagrant@vagrant:~/kubernetes/kuber_Network1$ kubectl exec pod/multitool -it -- /bin/bash
-bash-5.1# curl http://10.152.183.180:80
-^Z
-[1]+  Stopped                 curl http://10.152.183.180:80
 bash-5.1# curl http://10.152.183.180:9001
 <!DOCTYPE html>
 <html>
