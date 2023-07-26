@@ -79,13 +79,13 @@ spec:
 ---
 
 vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl get po -o wide
-NAME                       READY   STATUS    RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
-
-frontend-cbdccf466-l5fkd   1/1     Running   0          29m   10.1.52.171   vagrant   <none>           <none>
-frontend-cbdccf466-lz8bh   1/1     Running   0          29m   10.1.52.165   vagrant   <none>           <none>
-backend-5769f77c6b-n6vx4   1/1     Running   0          28m   10.1.52.180   vagrant   <none>           <none>
-backend-5769f77c6b-g42v4   1/1     Running   0          28m   10.1.52.190   vagrant   <none>           <none>
-backend-5769f77c6b-6cttk   1/1     Running   0          28m   10.1.52.144   vagrant   <none>           <none>
+NAME                       READY   STATUS    RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES
+frontend-cbdccf466-qnhx6   1/1     Running   0          4h57m   10.1.52.168   vagrant   <none>           <none>
+frontend-cbdccf466-l5fkd   1/1     Running   0          4h57m   10.1.52.171   vagrant   <none>           <none>
+frontend-cbdccf466-lz8bh   1/1     Running   0          4h57m   10.1.52.165   vagrant   <none>           <none>
+backend-5769f77c6b-n6vx4   1/1     Running   0          4h56m   10.1.52.180   vagrant   <none>           <none>
+backend-5769f77c6b-g42v4   1/1     Running   0          4h56m   10.1.52.190   vagrant   <none>           <none>
+backend-5769f77c6b-6cttk   1/1     Running   0          4h56m   10.1.52.144   vagrant   <none>           <none>
 
 vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl get svc -o wide
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)           AGE   SELECTOR
