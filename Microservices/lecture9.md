@@ -107,9 +107,10 @@ kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP    37d     <none
 svc-back     ClusterIP   10.152.183.209   <none>        8080/TCP   3m42s   app=multitool
 svc-front    ClusterIP   10.152.183.74    <none>        80/TCP     3m32s   app=nginx
 
-vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://10.1.52.139:8080
-WBITT Network MultiTool (with NGINX) - backend-7d86cbbc89-jqsbq - 10.1.52.139 - HTTP: 8080 , HTTPS: 443 . (Formerly praqma/network-multitool)
-vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://10.1.52.166:80
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://10.152.183.209:8080
+WBITT Network MultiTool (with NGINX) - backend-7d86cbbc89-mngv4 - 10.1.52.159 - HTTP: 8080 , HTTPS: 443 . (Formerly praqma/network-multitool)
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://10.152.183.74:80
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +119,7 @@ vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://10.1.52.166:80
     body {
         width: 35em;
         margin: 0 auto;
-
+        font-family: Tahoma, Verdana, Arial, sans-serif;
     }
 </style>
 </head>
