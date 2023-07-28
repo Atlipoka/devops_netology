@@ -165,4 +165,141 @@ Commercial support is available at
 </body>
 </html>
 ``` 
-2.ппрпрпарпарпарпар 
+***
+Задание 2. Создать Ingress и обеспечить доступ к приложениям снаружи кластера
+*** 
+1. Прошу помощи, ниже приложу все манифесты и порядок дейсвтий. При создании Ingress, не могу получить ответ от сервисов. Мне не совсем понятно почему и в чем ошибка. Манифесты:
+```
+vagrant@vagrant:~/kubernetes/kuber_Network2$ nano ingress.yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: default.ingress
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: front
+            port:
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: back
+            port:
+              number: 8080
+---
+vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe ing/myingress
+---
+Name:             myingress
+Labels:           <none>
+Namespace:        default
+Address:          127.0.0.1
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host             Path  Backends
+  ----             ----  --------
+  default.ingress
+                   /      front:80 (10.1.52.167:80,10.1.52.168:80,10.1.52.171:80)
+                   /api   back:8080 (10.1.52.164:8080,10.1.52.169:8080)
+Annotations:       <none>
+Events:            <none>
+---
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ nano servicefront.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front
+spec:
+  selector:
+    app: nginx
+  ports:
+  - name: nginx
+    protocol: TCP
+    port: 80
+  type: ClusterIP
+---
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe svc/front
+---
+Name:              front
+Namespace:         default
+Labels:            <none>
+Annotations:       <none>
+Selector:          app=nginx
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.152.183.50
+IPs:               10.152.183.50
+Port:              nginx  80/TCP
+TargetPort:        80/TCP
+Endpoints:         10.1.52.167:80,10.1.52.168:80,10.1.52.171:80
+Session Affinity:  None
+Events:            <none>
+---
+vagrant@vagrant:~/kubernetes/kuber_Network2$ nano serviceback.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back
+spec:
+  selector:
+    app: multitool
+  ports:
+  - name: multitool
+    protocol: TCP
+    port: 8080
+  type: ClusterIP
+---
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe svc/back
+---
+Name:              back
+Namespace:         default
+Labels:            <none>
+Annotations:       <none>
+Selector:          app=multitool
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.152.183.133
+IPs:               10.152.183.133
+Port:              multitool  8080/TCP
+TargetPort:        8080/TCP
+Endpoints:         10.1.52.164:8080,10.1.52.169:8080
+Session Affinity:  None
+Events:            <none>
+vagrant@vagrant:~/kubernete
+---
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://127.0.0.1/
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://127.0.0.1/api
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+```
