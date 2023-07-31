@@ -168,19 +168,106 @@ Commercial support is available at
 ***
 Задание 2. Создать Ingress и обеспечить доступ к приложениям снаружи кластера
 *** 
-1. Прошу помощи, ниже приложу все манифесты и порядок дейсвтий. При создании Ingress, не могу получить ответ от сервисов по внешнему IP адресу. Мне не совсем понятно почему и в чем ошибка, вроде все манифесты применил, сервисы работаю, но что-то не работает. Манифесты:
+1. Создаю deploy frontend и backend
 ```
-vagrant@vagrant:~/kubernetes/kuber_Network2$ nano ingress.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: multitool
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: multitool
+  template:
+    metadata:
+      labels:
+        app: multitool
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http-port
+      restartPolicy: Always
+---
+```
+2. После создания deploy frontend и backend создаю service для каждого с типом ClusterIP
+```
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front
+spec:
+  selector:
+    app: nginx
+  ports:
+  - name: nginx
+    protocol: TCP
+    port: 80
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back
+spec:
+  selector:
+    app: multitool
+  ports:
+  - name: multitool
+    protocol: TCP
+    port: 8080
+  type: ClusterIP
+---
+```
+3. После включаю ingress в microk8s коммандой ```microk8s enable ingress``` и metallb ```microk8s enable metallb```.
+4. Потом проверяю аргументы контроллера nginx и вижу, что в аргументах указано ````--ingress-class=public```` и ````--publish-status-address=127.0.0.1````, заатем поискав в интернете инфу редактирую аргументы, удаляю ````--publish-status-address=127.0.0.1```` и меняю класс с ````--ingress-class=public```` на ````--ingress-class=nginx````.
+5. Затем создаю ingress и проверяю, что он создался с корректным адресом.
+````
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: myingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-  - host: default.ingress
-    http:
+# - host: default.ingress.ru
+  - http:
       paths:
       - path: /
         pathType: Prefix
@@ -197,109 +284,38 @@ spec:
             port:
               number: 8080
 ---
-vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe ing/myingress
----
-Name:             myingress
-Labels:           <none>
-Namespace:        default
-Address:          127.0.0.1
-Ingress Class:    nginx
-Default backend:  <default>
-Rules:
-  Host             Path  Backends
-  ----             ----  --------
-  default.ingress
-                   /      front:80 (10.1.52.167:80,10.1.52.168:80,10.1.52.171:80)
-                   /api   back:8080 (10.1.52.164:8080,10.1.52.169:8080)
-Annotations:       <none>
-Events:            <none>
----
 
-vagrant@vagrant:~/kubernetes/kuber_Network2$ nano servicefront.yaml
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: front
-spec:
-  selector:
-    app: nginx
-  ports:
-  - name: nginx
-    protocol: TCP
-    port: 80
-  type: ClusterIP
----
+vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl get ing
+NAME        CLASS   HOSTS   ADDRESS         PORTS   AGE
+myingress   nginx   *       192.168.88.84   80      14m
 
-vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe svc/front
----
-Name:              front
-Namespace:         default
-Labels:            <none>
-Annotations:       <none>
-Selector:          app=nginx
-Type:              ClusterIP
-IP Family Policy:  SingleStack
-IP Families:       IPv4
-IP:                10.152.183.50
-IPs:               10.152.183.50
-Port:              nginx  80/TCP
-TargetPort:        80/TCP
-Endpoints:         10.1.52.167:80,10.1.52.168:80,10.1.52.171:80
-Session Affinity:  None
-Events:            <none>
----
-vagrant@vagrant:~/kubernetes/kuber_Network2$ nano serviceback.yaml
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: back
-spec:
-  selector:
-    app: multitool
-  ports:
-  - name: multitool
-    protocol: TCP
-    port: 8080
-  type: ClusterIP
----
-
-vagrant@vagrant:~/kubernetes/kuber_Network2$ kubectl describe svc/back
----
-Name:              back
-Namespace:         default
-Labels:            <none>
-Annotations:       <none>
-Selector:          app=multitool
-Type:              ClusterIP
-IP Family Policy:  SingleStack
-IP Families:       IPv4
-IP:                10.152.183.133
-IPs:               10.152.183.133
-Port:              multitool  8080/TCP
-TargetPort:        8080/TCP
-Endpoints:         10.1.52.164:8080,10.1.52.169:8080
-Session Affinity:  None
-Events:            <none>
-vagrant@vagrant:~/kubernete
----
-
-vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://127.0.0.1/
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://192.168.88.84/
+<!DOCTYPE html>
 <html>
-<head><title>404 Not Found</title></head>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
 <body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>nginx</center>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
 
-vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://127.0.0.1/api
-<html>
-<head><title>404 Not Found</title></head>
-<body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>nginx</center>
-</body>
-</html>
-```
+vagrant@vagrant:~/kubernetes/kuber_Network2$ curl http://192.168.88.84/api
+WBITT Network MultiTool (with NGINX) - backend-7d86cbbc89-47sbx - 10.1.52.163 - HTTP: 8080 , HTTPS: 443 . (Formerly praqma/network-multitool)
+```` 
