@@ -134,7 +134,74 @@ vagrant@vagrant:~/kubernetes/kuber_Storing2$ tail -n 10 log.txt
 
 ### Создать Deployment приложения, которое может хранить файлы на NFS с динамическим созданием PV.
 ***
-1. Включить и настроить NFS-сервер на MicroK8S.
-2. Создать Deployment приложения состоящего из multitool, и подключить к нему PV, созданный автоматически на сервере NFS.
-3. Продемонстрировать возможность чтения и записи файла изнутри пода.
-4. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
+1. Включил и настроил NFS-сервер на MicroK8S следуя интсрукцие - https://microk8s.io/docs/nfs, единственно, что исправил, это адрес nfs сервера `echo '/srv/nfs 10.0.2.15(rw,sync,no_subtree_check)' | sudo tee /etc/exports`
+2. Создаем Deployment приложения, состоящего из контейнеров busybox и multitool, и подключаем к нему PV, созданный автоматически на сервере NFS.
+````
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volumes
+  labels:
+    app: vol
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vol
+  template:
+    metadata:
+      labels:
+        app: vol
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        volumeMounts:
+        - name: vol
+          mountPath: /output
+        - name: busybox
+        image: busybox:1.28
+        command: ['sh', '-c','while true; do echo "Текущая дата и время" `date` >> /input/log.txt; sleep 5; done']
+        volumeMounts:
+        - name: vol
+          mountPath: /input
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: my-pvc
+      restartPolicy: Always
+````
+3. Демоснтрируем возможность чтения и записи файла изнутри пода.
+````
+vagrant@vagrant:~/kubernetes/kuber_Storing2$ tail -n 10 /srv/nfs/pvc-d2db3eff-0ee3-4e88-9b81-609d7515179d/log.txt
+Текущая дата и время Sun Aug 13 20:33:37 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:40 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:42 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:45 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:48 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:51 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:53 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:56 UTC 2023
+Текущая дата и время Sun Aug 13 20:33:58 UTC 2023
+Текущая дата и время Sun Aug 13 20:34:01 UTC 2023
+
+vagrant@vagrant:~/kubernetes/kuber_Storing2$ kubectl exec -i -t volumes-76d6cd9c95-6zznx --container multitool -- /bin/bash
+bash-5.1# tail -n 10 output/log.txt
+Текущая дата и время Sun Aug 13 20:32:25 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:29 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:30 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:34 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:35 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:39 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:42 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:44 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:47 UTC 2023
+Текущая дата и время Sun Aug 13 20:32:49 UTC 2023
+````
