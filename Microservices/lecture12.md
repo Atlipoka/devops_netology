@@ -131,6 +131,7 @@ vagrant@vagrant:~/kubernetes/kuber_Config$ curl http://10.152.183.218:8080
 <h1>Hi! We are successfully change previous web page </h1>
 </html
 ````
+
 ### Задание 2. Создать приложение с вашей веб-страницей, доступной по HTTPS
 ---
 1. Создать Deployment приложения, состоящего из Nginx.
