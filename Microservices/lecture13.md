@@ -107,4 +107,22 @@ Generating a 2048 bit RSA private key
 writing new private key to '/certs/privateKey.key'
 -----
 Starting nginx
+
+vagrant@vagrant:~/kubernetes/kuber_Enter$ kubectl --kubeconfig=sa-config-kube.conf describe po/hello-world -n netology-test
+Name:             hello-world
+Namespace:        netology-test
+Priority:         0
+Service Account:  default
+Node:             vagrant/10.0.2.15
+Start Time:       Thu, 24 Aug 2023 08:37:47 +0000
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: dc46e4dc4db5f8a11184ac257086067ea0ec7030d0c1489be95fa2a8e3c69244
+                  cni.projectcalico.org/podIP: 10.1.52.151/32
+                  cni.projectcalico.org/podIPs: 10.1.52.151/32
+Status:           Running
+IP:               10.1.52.151
+IPs:
+  IP:  10.1.52.151
+Containers:
+  hello-world:
 ````
