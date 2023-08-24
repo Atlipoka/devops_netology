@@ -59,11 +59,10 @@ users:
       client-key: /home/vagrant/kubernetes/kuber_Enter/kabaev.key
 ````
 3. Создайте роли и все необходимые настройки для пользователя. Предусмотрите права пользователя. Пользователь может просматривать логи подов и их конфигурацию (kubectl logs pod <pod_id>, kubectl describe pod <pod_id>).
-````
-ВОПРОС!
+ - ВОПРОС!
 Не знаю почему, пока не разобрался, при создании сервисного аккаунта, конфигурационного файла и сертификатов я успользовал имя Юзера с маленькой буквы kabaev, но когда пытался получить информацию о подах из под УЗ kabaev, получил ошибку, что у УЗ Kanaev(почему-то тут УЗ с большой буквы) нет доступа. При добавлении роли и биндинга я знатно намучался, пока не прописаль УЗ с большой буквы. Не сталкивались с таким?
 Error from server (Forbidden): pods "hello-world" is forbidden: User "Kabaev" cannot get resource "pods/log" in API group "" in the namespace "netology-test"
-
+````
 vagrant@vagrant:~/kubernetes/kuber_Enter$ nano role.yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
