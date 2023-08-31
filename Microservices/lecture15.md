@@ -1,5 +1,6 @@
 ## Задание 1. Подготовить Helm-чарт для приложения
 --
+
 1. Скачал Helm по оф. инструкции https://helm.sh/docs/intro/install/, создали чарт и шаблонизировали приложение
 ````
 vagrant@vagrant:~/kubernetes/kuber_Helm/netology-test-repo$ ll
@@ -200,6 +201,7 @@ affinity: {}
 
 ## Задание 2. Запустить две версии в разных неймспейсах
 --
+
 1. Проверяем созданные файл Helm'мом и пробуем задеплоит в разные неймспейсы
 ````
 vagrant@vagrant:~/kubernetes/kuber_Helm/netology-test-repo$ helm template netology-test . -f ./values.yaml
