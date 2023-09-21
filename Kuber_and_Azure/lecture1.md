@@ -14,5 +14,7 @@
 В общем итоге, если сложить все необходимые ресурсы, которые описаны в требованиях, то  получаеться необходимо 30,25Гб ОЗУ и 17 Ядер ЦПУ. Попытался разобрать несколько схем, которые, на мой взгляд, могут быть более оптимальны для разворачивания всех приложений, которые описаны в требованиях.
 
 1. Схема с 3-мя рабочими нодами
-  - ![3NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-08-08.png)
+ - ![3NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-08-08.png)
 
+2. Схема с 6-ю рабочими нодами
+ - ![6NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-08-08.png)
