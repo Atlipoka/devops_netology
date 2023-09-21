@@ -17,4 +17,4 @@
  - ![3NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-08-08.png)
 
 2. Схема с 6-ю рабочими нодами
- - ![6NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-08-08.png)
+ - ![6NODES](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/2023-09-22_00-02-32.png)
