@@ -189,7 +189,7 @@ ubuntu@master-2:~$ sudo kubeadm join 10.244.0.100:6443 --token ybh3z3.29fk0nwusa
 error execution phase preflight: couldn't validate the identity of the API Server: Get "https://10.244.0.100:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.244.0.100:6443: connect: connection refused
 To see the stack trace of this error execute with --v=5 or higher
 ````
-Вопрос в том, что я делаю не так и почему не могу достучатся до виртуального адреса...сервер ip 10.244.0.100 пингует.
+Вопрос в том, что я делаю не так и почему не могу достучатся до виртуального адреса...ip 10.244.0.100 пингует.
 ````
 ubuntu@master-2:~$ ping -c4 10.244.0.100
 PING 10.244.0.100 (10.244.0.100) 56(84) bytes of data.
