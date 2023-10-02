@@ -137,5 +137,4 @@ worker-4   Ready    <none>          63s     v1.28.2
  * Использовать нечётное количество Master-node.
  * Для cluster ip использовать keepalived или другой способ.
 ***
-И вот тут я застрял. Щас покажу где. 
- 
+И вот тут я застрял. Щас покажу где. Настройки keepalived [master](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/keepalived-master.conf) and [slave](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/keepalived-slave.conf), настройки хапроски [haproxy.cfg](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/haproxy.cfg)
