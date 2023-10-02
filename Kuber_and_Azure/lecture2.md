@@ -138,3 +138,64 @@ worker-4   Ready    <none>          63s     v1.28.2
  * Для cluster ip использовать keepalived или другой способ.
 ***
 И вот тут я застрял. Щас покажу где. Настройки keepalived [master](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/keepalived-master.conf) and [slave](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/keepalived-slave.conf), настройки хапроски [haproxy.cfg](https://github.com/Atlipoka/devops_netology/edit/main/Kuber_and_Azure/haproxy.cfg)
+
+1. Инициализируем первую мастер ноду
+````
+ubuntu@master-1:~$ sudo kubeadm init \
+> --apiserver-advertise-address=10.244.0.28 \
+> --pod-network-cidr 10.244.0.0/16 \
+> --apiserver-cert-extra-sans=130.193.37.176 \
+> --control-plane-endpoint=10.244.0.100
+[init] Using Kubernetes version: v1.28.2
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+...
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of control-plane nodes by copying certificate authorities
+and service account keys on each node and then running the following as root:
+
+  kubeadm join 10.244.0.100:6443 --token ybh3z3.29fk0nwusa3prj91 \
+        --discovery-token-ca-cert-hash sha256:e563df56a8291d5318b72be0b9df1c6f673d31ac4eb8d872f58751f96da4887f \
+        --control-plane
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.244.0.100:6443 --token ybh3z3.29fk0nwusa3prj91 \
+        --discovery-token-ca-cert-hash sha256:e563df56a8291d5318b72be0b9df1c6f673d31ac4eb8d872f58751f96da4887f
+````
+2. Потом идем на вторую ноду, пытаемся добавить ее в кластер и валимся по таймауту, не можем достучаться до сервера
+````
+ubuntu@master-2:~$ sudo kubeadm join 10.244.0.100:6443 --token ybh3z3.29fk0nwusa3prj91 \
+> --discovery-token-ca-cert-hash sha256:e563df56a8291d5318b72be0b9df1c6f673d31ac4eb8d872f58751f96da4887f \
+> --control-plane
+[preflight] Running pre-flight checks
+error execution phase preflight: couldn't validate the identity of the API Server: Get "https://10.244.0.100:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.244.0.100:6443: connect: connection refused
+To see the stack trace of this error execute with --v=5 or higher
+````
+Вопрос в том, что я делаю не так и почему не могу достучатся до виртуального адреса...сервер ip 10.244.0.100 пингует.
+````
+ubuntu@master-2:~$ ping -c4 10.244.0.100
+PING 10.244.0.100 (10.244.0.100) 56(84) bytes of data.
+64 bytes from 10.244.0.100: icmp_seq=1 ttl=64 time=0.047 ms
+64 bytes from 10.244.0.100: icmp_seq=2 ttl=64 time=0.069 ms
+64 bytes from 10.244.0.100: icmp_seq=3 ttl=64 time=0.044 ms
+64 bytes from 10.244.0.100: icmp_seq=4 ttl=64 time=0.069 ms
+````
+Нужно ли в этом случве донастроить кофниги или прописать правило на iptables??
