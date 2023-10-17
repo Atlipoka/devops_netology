@@ -165,3 +165,205 @@ REVISION  CHANGE-CAUSE
 3         Update nginx image to version 1.28
 4         Return to nginx image version 1.20
 ````
+2. Если ресурсы позволяют, то еще более безопасный вариант, это Blue/Green
+````
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ cat AB-deploy.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc
+  labels:
+    app: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+  - name: http
+    port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-blue
+  labels:
+    version: blue
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxSurge: 1
+       maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: blue
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: blue-nginx
+            mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: blue-nginx
+        configMap:
+          name: blue-nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-green
+  labels:
+    version: green
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxSurge: 1
+       maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: green
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: green-nginx
+            mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: green-nginx
+        configMap:
+          name: green-nginx
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ cat AB-istio.yaml
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: nginx-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: nginx
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - nginx-gateway
+  http:
+  - route:
+    - destination:
+        host: nginx-svc
+        subset: green
+      weight: 100
+    - destination:
+        host: nginx-svc
+        subset: blue
+      weight: 0
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: blue-green-dest
+spec:
+  host: nginx-svc
+  subsets:
+  - name: blue
+    labels:
+      version: blue
+  - name: green
+    labels:
+      version: green
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ kubectl get po,svc,deploy
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/nginx-green-68d4448c57-7dmsv   1/1     Running   0          32m
+pod/nginx-green-68d4448c57-957x2   1/1     Running   0          32m
+pod/nginx-blue-69cd65f789-l5rrr    1/1     Running   0          32m
+pod/nginx-blue-69cd65f789-68d2d    1/1     Running   0          32m
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP   7d8h
+service/nginx-svc    ClusterIP   10.152.183.125   <none>        80/TCP    32m
+
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-green   2/2     2            2           32m
+deployment.apps/nginx-blue    2/2     2            2           32m
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ kubectl get gw,dr,vs
+NAME                                        AGE
+gateway.networking.istio.io/nginx-gateway   4h8m
+
+NAME                                                  HOST        AGE
+destinationrule.networking.istio.io/nginx             nginx       8h
+destinationrule.networking.istio.io/blue-green-dest   nginx-svc   141m
+
+NAME                                       GATEWAYS            HOSTS   AGE
+virtualservice.networking.istio.io/nginx   ["nginx-gateway"]   ["*"]   4h7m
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ kubectl get svc/istio-ingressgateway -n istio-system
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                                                      AGE
+istio-ingressgateway   LoadBalancer   10.152.183.184   192.168.0.105   15021:30631/TCP,80:30928/TCP,443:32218/TCP,31400:31590/TCP,15443:32259/TCP   9h
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ curl 192.168.0.105:80
+<html>
+<h1>Welcome</h1>
+</br>
+<h1>Hi! It is green version </h1>
+</html
+
+Меняем в VirtualService вес трафика, переключаем с green на blue
+
+  - route:
+    - destination:
+        host: nginx-svc
+        subset: green
+      weight: 0
+    - destination:
+        host: nginx-svc
+        subset: blue
+      weight: 100
+
+Применяем кофниг и отправляем запрос еще раз
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ kubectl apply -f AB-istio.yaml
+gateway.networking.istio.io/nginx-gateway unchanged
+virtualservice.networking.istio.io/nginx configured
+destinationrule.networking.istio.io/blue-green-dest unchanged
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ curl 192.168.0.105:80
+<html>
+<h1>Welcome</h1>
+</br>
+<h1>Hi! It is blue version </h1>
+</html
+````
