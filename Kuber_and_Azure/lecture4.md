@@ -379,5 +379,5 @@ vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ curl 192.168.0.105
     - destination:
         host: nginx-svc
         subset: blue
-````
       weight: 10
+````
