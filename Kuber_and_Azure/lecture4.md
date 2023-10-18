@@ -370,7 +370,7 @@ vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ curl 192.168.0.105
 ## Задание 3*. Создать Canary deploymen
 
 Насколько я понял, при выполнении задания №2 я уже развернул все необходимы объекты и для работы по принципу Canary, необходимо регулировать вес трафика в VirtualService.
-
+````
   - route:
     - destination:
         host: nginx-svc
@@ -379,4 +379,5 @@ vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_depapp$ curl 192.168.0.105
     - destination:
         host: nginx-svc
         subset: blue
+````
       weight: 10
