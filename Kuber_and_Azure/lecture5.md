@@ -108,7 +108,7 @@ working. Further configuration is required.</p>
 ````
   * Если нам все-же нужно разделить приложения по разным неймспейсам, тогда нужно узнать полное DNS имя сервиса и изменить его в запросе, выбор как сделать изменения решать нам, или вязть исправить в исходнике, или прям на горячую изменить используюя edit, я сделал с edit
 ````
-kubectl edit deploy web-consumer -n web
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_trouble$ kubectl edit deploy web-consumer -n web
 ...
 - command:
         - sh
