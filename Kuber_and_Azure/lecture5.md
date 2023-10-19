@@ -108,6 +108,30 @@ working. Further configuration is required.</p>
 ````
   * Если нам все-же нужно разделить приложения по разным неймспейсам, тогда нужно узнать полное DNS имя сервиса и изменить его в запросе, выбор как сделать изменения решать нам, или вязть исправить в исходнике, или прям на горячую изменить используюя edit, я сделал с edit
 ````
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_trouble$ kubectl get deploy,po,svc -n web
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/web-consumer   2/2     2            2           10m
+
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/web-consumer-746567899c-h8z8z   1/1     Running   0          8m47s
+pod/web-consumer-746567899c-zd89k   1/1     Running   0          8m44s
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_trouble$ kubectl get deploy,po,svc -n data
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/auth-db   1/1     1            1           11m
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/auth-db-864ff9854c-nfvm6   1/1     Running   0          11m
+
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+service/auth-db   ClusterIP   10.152.183.223   <none>        80/TCP    11m
+
+vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_trouble$ kubectl exec pod/web-consumer-746567899c-zd89k -n web -i -t -- nslookup 10.152.183.223
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      10.152.183.223
+Address 1: 10.152.183.223 auth-db.data.svc.cluster.local
+
 vagrant@vagrant:~/Netology_homeworks/kubernetes/kuber_trouble$ kubectl edit deploy web-consumer -n web
 ...
 - command:
