@@ -1,4 +1,4 @@
-# Домашнее задание к занятию «Вычислительные мощности. Балансировщики нагрузки»
+  # Домашнее задание к занятию «Вычислительные мощности. Балансировщики нагрузки»
 
 ## Задание 1. Yandex Cloud
 
@@ -170,4 +170,20 @@ users:
     sudo: 'ALL=(ALL) NOPASSWD:ALL'
     ssh-authorized-keys:
       - ssh-rsa AAAAB3NzaC1yc...
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance-group list
++----------------------+--------+--------+------+
+|          ID          |  NAME  | STATUS | SIZE |
++----------------------+--------+--------+------+
+| cl1po5vu3bdt9gchvqsv | group1 | ACTIVE |    3 |
++----------------------+--------+--------+------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance-group list-instances --id cl1po5vu3bdt9gchvqsv
++----------------------+------+---------------+---------------+------------------------+----------------+
+|     INSTANCE ID      | NAME |  EXTERNAL IP  |  INTERNAL IP  |         STATUS         | STATUS MESSAGE |
++----------------------+------+---------------+---------------+------------------------+----------------+
+| fhm5um51g8otluksc3nk | vm-1 | 51.250.84.196 | 192.168.10.37 | RUNNING_ACTUAL [1h57m] |                |
+| fhmebk8nhsg1qa2j4b1k | vm-2 | 84.201.158.12 | 192.168.10.17 | RUNNING_ACTUAL [2h3m]  |                |
+| fhmlo8m8vkv6cu16rltn | vm-3 | 62.84.113.29  | 192.168.10.8  | RUNNING_ACTUAL [1h47m] |                |
++----------------------+------+---------------+---------------+------------------------+----------------+
 ````
