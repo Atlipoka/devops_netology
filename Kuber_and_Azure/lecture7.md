@@ -187,7 +187,7 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance-group l
 | fhmlo8m8vkv6cu16rltn | vm-3 | 62.84.113.29  | 192.168.10.8  | RUNNING_ACTUAL [1h47m] |                |
 +----------------------+------+---------------+---------------+------------------------+----------------+
 ````
- * У меня возникли проблемы при передаче в метадате комманд для настройки стартовой станицы, runcmd вообще не запускаеться на ВМ, поэтому, пришлось вручую настраивать машины, чтоботображалась корректная веб-страница
+ * У меня возникли проблемы при передаче в метадате комманд для настройки стартовой станицы, runcmd вообще не запускаеться на ВМ, поэтому, пришлось вручую настраивать машины, чтоб отображалась корректная стартовая веб-страница
 ````
 vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.84.196
 <html><h1> Hi! it is a vm-1 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
@@ -195,4 +195,113 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 84.201.158.12
 <html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
 vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 62.84.113.29
 <html><h1> Hi! it is a vm-3 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+````
+3. Распишу по порядку все операции по созданию сетевого балансировщика и результаты работы
+ * Целевую группу создали в п.2, когда инициализировали группу ВМ
+````
+...
+load_balancer {
+    target_group_name            = "tg1"
+    max_opening_traffic_duration = 10
+  }
+...
+````
+ * Теперь создаем сетевой балансировщик
+````
+resource "yandex_lb_network_load_balancer" "nlb" {
+  name = "network-load-balancer"
+
+  listener {
+    name = "listener"
+    port = 80
+    external_address_spec {
+      ip_version = "ipv4"
+    }
+  }
+
+  attached_target_group {
+    target_group_id = "${yandex_compute_instance_group.group1.load_balancer[0].target_group_id}"
+
+    healthcheck {
+      name = "tcp"
+      tcp_options {
+        port = 80
+      }
+    }
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc load-balancer nlb get --name=network-load-balancer
+id: enprir8hqdti53isfdqp
+folder_id: b1gjjlp1h6jc8jeaclal
+created_at: "2023-11-01T13:11:24Z"
+name: network-load-balancer
+region_id: ru-central1
+status: ACTIVE
+type: EXTERNAL
+listeners:
+  - name: listener
+    address: 51.250.6.216
+    port: "80"
+    protocol: TCP
+    target_port: "80"
+    ip_version: IPV4
+attached_target_groups:
+  - target_group_id: enpa3s7u1ads951um37n
+    health_checks:
+      - name: tcp
+        interval: 2s
+        timeout: 1s
+        unhealthy_threshold: "2"
+        healthy_threshold: "2"
+        tcp_options:
+          port: "80"
+````
+ * Проверяем как рабоает балансировщик, тущим пару виртуалок и проверяем еще раз
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-4 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
++----------------------+------+---------------+---------+---------------+---------------+
+|          ID          | NAME |    ZONE ID    | STATUS  |  EXTERNAL IP  |  INTERNAL IP  |
++----------------------+------+---------------+---------+---------------+---------------+
+| fhm5um51g8otluksc3nk | vm-1 | ru-central1-a | RUNNING | 51.250.84.196 | 192.168.10.37 |
+| fhmebk8nhsg1qa2j4b1k | vm-2 | ru-central1-a | RUNNING | 84.201.158.12 | 192.168.10.17 |
+| fhmlo8m8vkv6cu16rltn | vm-4 | ru-central1-a | RUNNING | 62.84.113.29  | 192.168.10.8  |
++----------------------+------+---------------+---------+---------------+---------------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance stop fhmebk8nhsg1qa2j4b1k
+done (17s)
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
++----------------------+------+---------------+---------+---------------+---------------+
+|          ID          | NAME |    ZONE ID    | STATUS  |  EXTERNAL IP  |  INTERNAL IP  |
++----------------------+------+---------------+---------+---------------+---------------+
+| fhm5um51g8otluksc3nk | vm-1 | ru-central1-a | RUNNING | 51.250.84.196 | 192.168.10.37 |
+| fhmebk8nhsg1qa2j4b1k | vm-2 | ru-central1-a | STOPPED |               | 192.168.10.17 |
+| fhmlo8m8vkv6cu16rltn | vm-4 | ru-central1-a | RUNNING | 62.84.113.29  | 192.168.10.8  |
++----------------------+------+---------------+---------+---------------+---------------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-1 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-1 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance stop --id fhm5um51g8otluksc3nk
+done (18s)
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
++----------------------+------+---------------+---------+--------------+---------------+
+|          ID          | NAME |    ZONE ID    | STATUS  | EXTERNAL IP  |  INTERNAL IP  |
++----------------------+------+---------------+---------+--------------+---------------+
+| fhm5um51g8otluksc3nk | vm-1 | ru-central1-a | STOPPED |              | 192.168.10.37 |
+| fhmebk8nhsg1qa2j4b1k | vm-2 | ru-central1-a | STOPPED |              | 192.168.10.17 |
+| fhmlo8m8vkv6cu16rltn | vm-4 | ru-central1-a | RUNNING | 62.84.113.29 | 192.168.10.8  |
++----------------------+------+---------------+---------+--------------+---------------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
+<html><h1> Hi! it is a vm-4 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
 ````
