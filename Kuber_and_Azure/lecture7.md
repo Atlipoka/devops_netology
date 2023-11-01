@@ -187,3 +187,12 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance-group l
 | fhmlo8m8vkv6cu16rltn | vm-3 | 62.84.113.29  | 192.168.10.8  | RUNNING_ACTUAL [1h47m] |                |
 +----------------------+------+---------------+---------------+------------------------+----------------+
 ````
+ * У меня возникли проблемы при передаче в метадате комманд для настройки стартовой станицы, runcmd вообще не запускаеться на ВМ, поэтому, пришлось вручую настраивать машины, чтоботображалась корректная веб-страница
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.84.196
+<html><h1> Hi! it is a vm-1 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 84.201.158.12
+<html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 62.84.113.29
+<html><h1> Hi! it is a vm-3 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+````
