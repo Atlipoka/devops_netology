@@ -23,7 +23,7 @@
 #### Выполнение
 
 1. Распишу по порядку все операции с корзиной
- 1.1. Создаем Корзину
+ * Создаем Корзину
 ````
 vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat sb.tf
 resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
@@ -39,4 +39,4 @@ resource "yandex_storage_bucket" "bucket-kabaev" {
   max_size   = 500000000
 }
 ````
- 1.2. 
+ * вддпдапжв 
