@@ -17,3 +17,26 @@
  * Создать сетевой балансировщик.
  * Проверить работоспособность, удалив одну или несколько ВМ.
 4. (дополнительно)* Создать Application Load Balancer с использованием Instance group и проверкой состояния.
+
+***
+
+#### Выполнение
+
+1. Распишу по порядку все операции с корзиной
+ 1.1. Создаем Корзину
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat sb.tf
+resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
+  service_account_id = "ajebtiua2igaepkna5i8"
+  description        = "static access key for object storage"
+}
+
+resource "yandex_storage_bucket" "bucket-kabaev" {
+  bucket     = "bucket-kabaev"
+  access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
+  secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+  acl        = "public-read-write"
+  max_size   = 500000000
+}
+````
+ 1.2. 
