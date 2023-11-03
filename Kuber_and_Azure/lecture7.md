@@ -305,3 +305,139 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
 vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 51.250.6.216
 <html><h1> Hi! it is a vm-4 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
 ````
+
+4. Теперь подготавливаем Application Balancer, добавляем в конфиг Instance Group параметр ``application_load_balancer``, затем создаем группу бэкэндов, HTTP-роутер, а потом уже сам баллансировщик.
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat ig.tf
+...
+application_load_balancer {
+    target_group_name            = "tg2"
+    max_opening_traffic_duration = 10
+  }
+...
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat back-group.tf 
+resource "yandex_alb_backend_group" "backend-group1" {
+  name                     = "backend-group1"
+
+  http_backend {
+    name                   = "back1"
+    weight                 = 1
+    port                   = 80
+    target_group_ids       = ["${yandex_compute_instance_group.group1.application_load_balancer[0].target_group_id}"]
+    load_balancing_config {
+      panic_threshold      = 10
+      mode                 = "ROUND_ROBIN"
+    }
+    healthcheck {
+      timeout              = "10s"
+      interval             = "2s"
+      healthy_threshold    = 10
+      unhealthy_threshold  = 15
+      http_healthcheck {
+        path               = "/"
+      }
+    }
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat http_rout.tf
+resource "yandex_alb_http_router" "http-router" {
+  name          = "http-router"
+}
+
+resource "yandex_alb_virtual_host" "virtual-host" {
+  name                    = "virtual-host"
+  http_router_id          = "${yandex_alb_http_router.http-router.id}"
+  route {
+    name                  ="route1"
+    http_route {
+      http_route_action {
+        backend_group_id  = "${yandex_alb_backend_group.backend-group1.id}"
+        timeout           = "10s"
+      }
+    }
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat alb.tf
+resource "yandex_alb_load_balancer" "alb-balancer" {
+  name        = "alb-balancer"
+
+  network_id  = "${yandex_vpc_network.network.id}"
+
+  allocation_policy {
+    location {
+      zone_id   = "ru-central1-a"
+      subnet_id = "${yandex_vpc_subnet.public1.id}"
+    }
+  }
+
+  listener {
+    name = "listener"
+    endpoint {
+      address {
+        external_ipv4_address {
+        }
+      }
+      ports = [ 80 ]
+    }
+    http {
+      handler {
+        http_router_id = "${yandex_alb_http_router.http-router.id}"
+      }
+    }
+  }
+
+  log_options {
+    discard_rule {
+      http_code_intervals = ["HTTP_2XX"]
+      discard_percent = 75
+    }
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc alb backend-group list
++----------------------+----------------+---------------------+--------------+---------------+----------+
+|          ID          |      NAME      |       CREATED       | BACKEND TYPE | BACKEND COUNT | AFFINITY |
++----------------------+----------------+---------------------+--------------+---------------+----------+
+| ds74rvqsgf6c24aq7ftm | backend-group1 | 2023-11-03 11:37:39 | HTTP         |             1 | NONE     |
++----------------------+----------------+---------------------+--------------+---------------+----------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc alb http-router list
++----------------------+-------------+-------------+-------------+
+|          ID          |    NAME     | VHOST COUNT | ROUTE COUNT |
++----------------------+-------------+-------------+-------------+
+| ds7idj51h80m3ve3djlh | http-router |           1 |           1 |
++----------------------+-------------+-------------+-------------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc alb load-balancer list
++----------------------+--------------+-----------+----------------+--------+
+|          ID          |     NAME     | REGION ID | LISTENER COUNT | STATUS |
++----------------------+--------------+-----------+----------------+--------+
+| ds78g10diktuauhs3bkr | alb-balancer |           |              1 | ACTIVE |
++----------------------+--------------+-----------+----------------+--------+
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc alb load-balancer get --name alb-balancer
+id: ds78g10diktuauhs3bkr
+name: alb-balancer
+folder_id: b1gjjlp1h6jc8jeaclal
+status: ACTIVE
+network_id: enpi2cc2rfj2k4ju6im7
+listeners:
+  - name: listener
+    endpoints:
+      - addresses:
+          - external_ipv4_address:
+              address: 158.160.130.124
+...
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 158.160.130.124
+<html><h1> Hi! it is a vm-1 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 158.160.130.124
+<html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 158.160.130.124
+<html><h1> Hi! it is a vm-3 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ curl 158.160.130.124
+<html><h1> Hi! it is a vm-2 <p><a href=https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg>Click here</a> for download picture </p></h1></html>
+````
