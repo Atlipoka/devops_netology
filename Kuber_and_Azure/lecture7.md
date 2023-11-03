@@ -275,7 +275,7 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
 | fhmlo8m8vkv6cu16rltn | vm-4 | ru-central1-a | RUNNING | 62.84.113.29  | 192.168.10.8  |
 +----------------------+------+---------------+---------+---------------+---------------+
 
-vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance stop fhmebk8nhsg1qa2j4b1k
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance stop --id fhmebk8nhsg1qa2j4b1k
 done (17s)
 vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ yc compute instance list
 +----------------------+------+---------------+---------+---------------+---------------+
