@@ -161,7 +161,7 @@ vagrant@vagrant:~/Netology_homeworks/Cloud/lecture2$ cat cloud-init.yaml
 runcmd:
   - sudo su
   - hostn=$(cat /etc/hostname)
-  - echo "<html><h1> Hi! it is a $hostname <p><a href="https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg">Click here</a> for download picture </p></h1></html>" > /var/www/html/index.html
+  - echo "<html><h1> Hi! it is a $hostn <p><a href="https://storage.yandexcloud.net/bucket-kabaev/devops2.jpg">Click here</a> for download picture </p></h1></html>" > /var/www/html/index.html
 users:
   - default
   - name: ubuntu
