@@ -80,4 +80,4 @@ resource "yandex_storage_bucket" "kabaev-bucket" {
 }
 ...
 ````
- * По поводу шифрования уже созданных файлов в бакете. Прочитав раздел о выборе способа шифрования, в документации [YC]{https://cloud.yandex.ru/docs/kms/tutorials/encrypt/}
+ * По поводу шифрования уже созданных файлов в бакете. Прочитав раздел о выборе способа шифрования, в документации {YC}[https://cloud.yandex.ru/docs/kms/tutorials/encrypt/]
