@@ -80,4 +80,28 @@ resource "yandex_storage_bucket" "kabaev-bucket" {
 }
 ...
 ````
- * По поводу шифрования уже созданных файлов в бакете. Прочитав раздел о выборе способа шифрования, в документации {YC}[https://cloud.yandex.ru/docs/kms/tutorials/encrypt/]
+ * По поводу шифрования уже созданных файлов в бакете. Прочитав раздел о выборе способа шифрования, в документации [YC](https://cloud.yandex.ru/docs/kms/tutorials/encrypt/), я нашел способ ширования данных через YC CLI, но для файлов, размер которых меньше чем 32 КБ. Создал тестовый
+файл и зашифровал его, затем, расшифровал повторно.
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture3$ cat text.txt
+Hello!
+I want encrypt this file use kms key in YC.
+hahahahhahaha!
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture3$ yc kms symmetric-crypto encrypt   --name kms   --plaintext-file ./text.txt   --ciphertext-file ./text.txt
+key_id: abjhk6v75usgmf7klrff
+version_id: abjmocoegi09hdpp7udu
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture3$ cat text.txt
+abjmocoegi09hdpp7udu►▒◄1▒       ▒t▒►▒▒(8H7J▒▒,#G▒▒%]▒no-▒م▒zh▒▒▒▒n▒?2:k▒▒▒Y▒^▒↓X(▒Dj▒
+T▒▒▒[▒(▒x.+Fb_▒ /"▒J▒0▒▒o▒▒'▒▒▒▒PS(9▒Zɣ▒
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture3$ yc kms symmetric-crypto decrypt   --name kms   --plaintext-file ./text.txt   --ciphertext-file ./text.txt
+key_id: abjhk6v75usgmf7klrff
+version_id: abjmocoegi09hdpp7udu
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture3$ cat text.txt
+Hello!
+I want encrypt this file use kms key in YC.
+hahahahhahaha!
+````
