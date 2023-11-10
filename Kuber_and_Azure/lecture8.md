@@ -107,5 +107,5 @@ hahahahhahaha!
 ````
 2. Создаем статический сайт в YC на базе Object Starage, который будет доступен по HTTPS
  * Создаем сетрификат (я создал два для HTTP и DNS типом проверки)
- * ![HTTP-SERT](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/sert-http.png)
+![HTTP-SERT](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/sert-http.png)
  *
