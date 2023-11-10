@@ -105,3 +105,7 @@ Hello!
 I want encrypt this file use kms key in YC.
 hahahahhahaha!
 ````
+2. Создаем статический сайт в YC на базе Object Starage, который будет доступен по HTTPS
+ * Создаем сетрификат (я создал два для HTTP и DNS типом проверки)
+ * 
+ *
