@@ -109,4 +109,7 @@ hahahahhahaha!
  * Создаем сетрификат (я создал два для HTTP и DNS типом проверки)
 ![HTTP-SERT](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/sert-http.png)
 ![DNS-SERT](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/sert-dns.png)
- *
+ * Так-же, следуя инструкциям, я создал файлы для проверки в случае с http сертификатом и необходимые dns записи, в случае с dns сертификатом
+![HTTP-VALID](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/http-valid.png)
+![DNS-VALID](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/dns-valid.png)
+* Пока сертификаты в статусе pending. Уже висят так в теечении 2х часов, подскажите, как долго они валидируются??
