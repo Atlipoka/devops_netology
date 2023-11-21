@@ -70,7 +70,7 @@ resource "yandex_mdb_mysql_cluster" "netology_cluster" {
 
   maintenance_window {
     type = "WEEKLY"
-    day  = "SAT"
+    day  = "TUE"
     hour = 23
   }
 
