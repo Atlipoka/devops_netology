@@ -117,8 +117,8 @@ resource "yandex_mdb_mysql_user" "netology" {
     roles         = ["ALL"]
   }
 }
-
-1. Создаем с помощью Terraform региональный мастер Kubernetes c группой узлов и проверяем работоспособность.
+````
+2. Создаем с помощью Terraform региональный мастер Kubernetes c группой узлов и проверяем работоспособность.
 ````
 resource "yandex_vpc_network" "network" {
   name = "network"
