@@ -327,4 +327,4 @@ NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(
 service/kubernetes           ClusterIP      10.96.128.1    <none>          443/TCP        30m
 service/phpmyadmin-service   LoadBalancer   10.96.191.67   158.160.129.6   80:30824/TCP   73s
 ````
- * ![screen1]()
+ * ![screen1](https://github.com/Atlipoka/devops_netology/blob/main/Kuber_and_Azure/phpmysql.png)
