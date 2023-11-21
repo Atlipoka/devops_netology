@@ -25,3 +25,98 @@
  * *Создать сервис-типы Load Balancer и подключиться к phpmyadmin. Предоставить скриншот с публичным адресом и подключением к БД.
  ***
  ## Выполнение
+
+1. Создаем с помощью Terraform кластер баз данных MySQ с необходимыми параметрами
+````
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat network.tf
+resource "yandex_vpc_network" "network" {
+  name = "network"
+}
+
+resource "yandex_vpc_subnet" "private1" {
+  name           = "private1"
+  zone           = "ru-central1-a"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["192.168.10.0/24"]
+}
+
+resource "yandex_vpc_subnet" "private2" {
+  name           = "private2"
+  zone           = "ru-central1-b"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["192.168.20.0/24"]
+}
+
+resource "yandex_vpc_subnet" "private3" {
+  name           = "private3"
+  zone           = "ru-central1-c"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["192.168.30.0/24"]
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat mysql.tf
+resource "yandex_mdb_mysql_cluster" "netology_cluster" {
+  name                = "netology_cluster"
+  environment         = "PRESTABLE"
+  network_id          = yandex_vpc_network.network.id
+  version             = "8.0"
+  deletion_protection = "true"
+
+  resources {
+    resource_preset_id = "b1.medium"
+    disk_type_id       = "network-ssd"
+    disk_size          = 20
+  }
+
+  maintenance_window {
+    type = "WEEKLY"
+    day  = "SAT"
+    hour = 23
+  }
+
+  backup_window_start {
+    hours   = 23
+    minutes = 59
+  }
+
+  host {
+    name      = "db-1"
+    zone      = "ru-central1-a"
+    subnet_id = yandex_vpc_subnet.private1.id
+    # assign_public_ip        = true
+  }
+
+  host {
+    name                    = "db-2"
+    zone                    = "ru-central1-b"
+    replication_source_name = "db-1"
+    subnet_id               = yandex_vpc_subnet.private2.id
+    # assign_public_ip        = true
+  }
+
+  host {
+    name                    = "db-3"
+    zone                    = "ru-central1-c"
+    replication_source_name = "db-2"
+    subnet_id               = yandex_vpc_subnet.private3.id
+    #assign_public_ip        = true
+  }
+}
+
+resource "yandex_mdb_mysql_database" "netology-db" {
+  cluster_id = yandex_mdb_mysql_cluster.netology_cluster.id
+  name       = "netology_db"
+}
+
+resource "yandex_mdb_mysql_user" "netology" {
+  cluster_id = yandex_mdb_mysql_cluster.netology_cluster.id
+  name       = "netology"
+  password   = "123456789"
+  permission {
+    database_name = "netology_db"
+    roles         = ["ALL"]
+  }
+}
+
+
+````
