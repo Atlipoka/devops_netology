@@ -118,5 +118,213 @@ resource "yandex_mdb_mysql_user" "netology" {
   }
 }
 
-
+1. Создаем с помощью Terraform региональный мастер Kubernetes c группой узлов и проверяем работоспособность.
 ````
+resource "yandex_vpc_network" "network" {
+  name = "network"
+}
+...
+resource "yandex_vpc_subnet" "public1" {
+  name           = "public1"
+  zone           = "ru-central1-a"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["10.5.0.0/16"]
+}
+
+resource "yandex_vpc_subnet" "public2" {
+  name           = "public2"
+  zone           = "ru-central1-b"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["10.6.0.0/16"]
+}
+
+resource "yandex_vpc_subnet" "public3" {
+  name           = "public3"
+  zone           = "ru-central1-c"
+  network_id     = yandex_vpc_network.network.id
+  v4_cidr_blocks = ["10.7.0.0/16"]
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat kms.tf 
+resource "yandex_kms_symmetric_key" "kms-key" {
+  name              = "kms-key"
+  default_algorithm = "AES_128"
+  rotation_period   = "1440h" # 1 год.
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat k8-cluster.tf
+resource "yandex_kubernetes_cluster" "k8s-regional" {
+  name       = "k8s-regional"
+  network_id = yandex_vpc_network.network.id
+  master {
+    version   = "1.27"
+    public_ip = true
+
+    regional {
+      region = "ru-central1"
+      location {
+        zone      = yandex_vpc_subnet.public1.zone
+        subnet_id = yandex_vpc_subnet.public1.id
+      }
+
+      location {
+        zone      = yandex_vpc_subnet.public2.zone
+        subnet_id = yandex_vpc_subnet.public2.id
+      }
+
+      location {
+        zone      = yandex_vpc_subnet.public3.zone
+        subnet_id = yandex_vpc_subnet.public3.id
+      }
+    }
+
+    maintenance_policy {
+      auto_upgrade = true
+
+      maintenance_window {
+        day        = "Wednesday"
+        start_time = "23:00"
+        duration   = "3h"
+      }
+    }
+  }
+
+  service_account_id      = "ajereg9535ct9lmk2cg2"
+  node_service_account_id = "ajereg9535ct9lmk2cg2"
+
+  kms_provider {
+    key_id = yandex_kms_symmetric_key.kms-key.id
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat pods.tf
+resource "yandex_kubernetes_node_group" "my_node_group" {
+  cluster_id = yandex_kubernetes_cluster.k8s-regional.id
+  name       = "netology"
+  version    = "1.27"
+
+
+  instance_template {
+    platform_id = "standard-v2"
+
+    metadata = {
+      ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    }
+
+    network_interface {
+      nat        = true
+      subnet_ids = ["${yandex_vpc_subnet.public1.id}"]
+    }
+
+    resources {
+      memory        = 2
+      cores         = 2
+      core_fraction = 20
+    }
+
+    boot_disk {
+      type = "network-hdd"
+      size = 64
+    }
+
+    scheduling_policy {
+      preemptible = false
+    }
+
+    container_runtime {
+      type = "containerd"
+    }
+  }
+
+  scale_policy {
+    auto_scale {
+      min     = 2
+      max     = 6
+      initial = 3
+    }
+  }
+
+  allocation_policy {
+    location {
+      zone = "ru-central1-a"
+    }
+  }
+
+  maintenance_policy {
+    auto_upgrade = true
+    auto_repair  = true
+
+    maintenance_window {
+      day        = "Wednesday"
+      start_time = "15:00"
+      duration   = "3h"
+    }
+  }
+}
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ yc managed-kubernetes cluster get-credentials --id catq58mtrd4m1eo3jb58 --external
+
+
+Context 'yc-k8s-regional' was added as default to kubeconfig '/home/vagrant/.kube/config'.
+Check connection to cluster using 'kubectl cluster-info --kubeconfig /home/vagrant/.kube/config'.
+
+Note, that authentication depends on 'yc' and its config profile 'netology'.
+To access clusters using the Kubernetes API, please use Kubernetes Service Account.
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ kubectl get pods
+
+No resources found in default namespace.
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat phpmyadmin.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+  labels:
+    app: phpmyadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: "rc1a-gldmr6mef5xs1pe9.mdb.yandexcloud.net"
+            - name: PMA_PORT
+              value: "3306"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456789"
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ cat service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: phpmyadmin
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+
+vagrant@vagrant:~/Netology_homeworks/Cloud/lecture4$ kubectl get deploy,svc
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/phpmyadmin-deployment   1/1     1            1           80s
+
+NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)        AGE
+service/kubernetes           ClusterIP      10.96.128.1    <none>          443/TCP        30m
+service/phpmyadmin-service   LoadBalancer   10.96.191.67   158.160.129.6   80:30824/TCP   73s
+````
+ * ![screen1]()
